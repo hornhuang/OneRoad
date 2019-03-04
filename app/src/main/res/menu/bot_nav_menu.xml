@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="@string/encyclopedia"
+        android:id="@+id/nav_encyclopedia"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:orderInCategory="1"/>
+
+    <item
+        android:title="@string/goods"
+        android:id="@+id/nav_goods"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:orderInCategory="2"/>
+
+    <item
+        android:title="@string/prime_page"
+        android:id="@+id/nav_prime_page"
+        android:icon="@drawable/ic_launcher_background"
+        android:orderInCategory="3"/>
+
+    <item
+        android:title="@string/route"
+        android:id="@+id/nav_route"
+        android:icon="@drawable/ic_launcher_background"
+        android:orderInCategory="4"/>
+
+    <item
+        android:title="@string/mine"
+        android:id="@+id/nav_mine"
+        android:icon="@drawable/ic_launcher_background"
+        android:orderInCategory="5"/>
+
+</menu>

@@ -1,0 +1,19 @@
+<resources>
+
+    <string name="app_name">OneRoad</string>
+
+    //nav buttons
+    <string name="encyclopedia">百度百科</string>
+    <string name="goods">非遗商品</string>
+    <string name="prime_page">首页</string>
+    <string name="route">非遗之路</string>
+    <string name="mine">关于我的</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
