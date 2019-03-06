@@ -30,11 +30,9 @@ import java.util.List;
 
 import okhttp3.Call;
 
-public class NavPrimePageFragment extends Fragment {
+public class NavPrimePageFragment extends Fragment implements PictureForRecyclerView{
 
-    private RecyclerView mHorizontalListView;//水平商品轮播图
     private RecyclerView mVerticalListView;//竖直商品轮播图
-    private Button addMoreButton;//点击增加更多
     private List<PrimePageListGoods> mainVerticalList;//竖直商品，点击增加10项
     private View primeView;//本界面布局
 
@@ -133,7 +131,8 @@ public class NavPrimePageFragment extends Fragment {
     }
 
     //生成所有列表项
-    private void downloadPicture(){
+    @Override
+    public void downloadPicture(){
         new Thread(){
             @Override
             public void run() {
@@ -156,7 +155,8 @@ public class NavPrimePageFragment extends Fragment {
     }
 
     //将列表图片显示
-    private void iniGoodsRecyclerView(){
+    @Override
+    public void iniGoodsRecyclerView(){
         List<PrimePageListGoods> data = mainVerticalList;
         mVerticalListView = (RecyclerView) primeView.findViewById(R.id.prime_page_fragment_vertical_recycler_view);
         RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), 1);
@@ -167,6 +167,7 @@ public class NavPrimePageFragment extends Fragment {
         mVerticalListView.setAdapter(new NavPrimePageAdapter(data,this));
     }
 
+    @Override
     public void getImage()
     {
         String url = "http://47.107.132.227/form";

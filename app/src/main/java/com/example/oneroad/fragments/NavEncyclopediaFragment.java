@@ -4,14 +4,22 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 
 import com.example.oneroad.R;
+import com.example.oneroad.classes.EncyclopediaListGoods;
 import com.example.oneroad.classes.PrimePageListGoods;
+import com.example.oneroad.recycleradapter.EncyclopediaAdapter;
 import com.example.oneroad.utils.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -25,7 +33,11 @@ import java.util.List;
 import okhttp3.Call;
 
 
-public class NavEncyclopediaFragment extends Fragment {
+public class NavEncyclopediaFragment extends Fragment implements PictureForRecyclerView{
+
+    private View view;
+    private RecyclerView mRecyclerView;
+    private List<EncyclopediaListGoods> mGoodsRecyclerList;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -38,6 +50,15 @@ public class NavEncyclopediaFragment extends Fragment {
 
     private List<String> images = new ArrayList<>();
     private List<String> titles = new ArrayList<>();
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 0x0){
+                iniGoodsRecyclerView();
+            }
+        }
+    };
 
     public NavEncyclopediaFragment() {
         // Required empty public constructor
@@ -66,9 +87,9 @@ public class NavEncyclopediaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_nav_encyclopedia, container, false);
+        view =  inflater.inflate(R.layout.fragment_nav_encyclopedia, container, false);
         setBanner(view);
-
+        downloadPicture();
         return view;
     }
 
@@ -121,6 +142,30 @@ public class NavEncyclopediaFragment extends Fragment {
         banner.start();
     }
 
+
+    @Override
+    public void downloadPicture() {
+        mGoodsRecyclerList = new ArrayList<>();
+        new Thread(){
+            @Override
+            public void run() {
+                while (mGoodsRecyclerList.size() < 6){
+                    try {
+                        sleep(100);
+                        getImage();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Message msg = new Message();
+                msg.what = 0x0;
+                handler.sendMessage(msg);
+            }
+        }.start();
+    }
+
+    //
+    @Override
     public void getImage()
     {
         String url = "http://47.107.132.227/form";
@@ -137,16 +182,28 @@ public class NavEncyclopediaFragment extends Fragment {
                     @Override
                     public void onError(Call call, Exception e, int id)
                     {
-                        Log.d("tag","onError:" + e.getMessage());
+                        // show error message to users
                     }
 
                     @Override
                     public void onResponse(Bitmap bitmap, int id)
                     {
-                        Log.e("TAG", "onResponse：complete");
-//                        mainVerticalList.add(new PrimePageListGoods(bitmap));
+                        // add bitmap to list here
+                        mGoodsRecyclerList.add(new EncyclopediaListGoods(bitmap));
                     }
                 });
+    }
+
+    @Override
+    public void iniGoodsRecyclerView() {
+        List<EncyclopediaListGoods> mData = mGoodsRecyclerList;
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.nav_encyclopedia_recycler_view);
+        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), 1);
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setNestedScrollingEnabled(false);
+        mRecyclerView.getLayoutParams().height = mData.size() * 300;
+        mRecyclerView.setAdapter(new EncyclopediaAdapter(mData, this));
     }
 
 }
