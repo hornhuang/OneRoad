@@ -15,7 +15,7 @@ import com.example.oneroad.fragments.NavPrimePageFragment;
 
 import java.util.List;
 
-public class NavPrimePageAdapter extends RecyclerView.Adapter<VH> {
+public class NavPrimePageAdapter extends RecyclerView.Adapter<NavPrimePageAdapter.VH> {
     //传入列表元素集合
     private List<PrimePageListGoods> mDatas;
     private NavPrimePageFragment navPrimePageFragment;
@@ -29,7 +29,6 @@ public class NavPrimePageAdapter extends RecyclerView.Adapter<VH> {
     @Override
     public void onBindViewHolder(@NonNull VH vh, int i) {
         vh.imageid.setImageBitmap(mDatas.get(i).getGoodsImage());
-        vh.imageid.setScaleType(ImageView.ScaleType.FIT_XY);
         vh.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,17 +49,17 @@ public class NavPrimePageAdapter extends RecyclerView.Adapter<VH> {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.prime_page_list_item, viewGroup, false);
         return new VH(view);
     }
-}
 
-//连接上布局文件
-class VH extends RecyclerView.ViewHolder{
+    //连接上布局文件
+    class VH extends RecyclerView.ViewHolder{
 
-    public final ImageView imageid;
+        public final ImageView imageid;
 
-    public VH(View view){
-        super(view);
-        view.getLayoutParams().height = 300 ;//获得布局参数的高度，并设置
-        imageid = (ImageView) view.findViewById(R.id.nav_prime_page_list_item);
+        public VH(View view){
+            super(view);
+            view.getLayoutParams().height = 300 ;//获得布局参数的高度，并设置
+            imageid = (ImageView) view.findViewById(R.id.nav_prime_page_list_item);
+        }
+
     }
-
 }
