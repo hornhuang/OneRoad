@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#f3efe9">
+            android:background="@color/PageBackground">
 
             <com.youth.banner.Banner
                 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -94,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:background="#C6B399"
+                android:background="@color/PageTextBackground"
                 android:text="|猜|你|喜|欢|"
                 android:textSize="25dp"/>
 

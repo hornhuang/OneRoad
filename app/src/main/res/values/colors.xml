@@ -7,4 +7,7 @@
     // Bottom Navigation color
     <color name="colorPrimaryBottom">#D81B60</color>
 
+    <color name="PageTextBackground">#ffC6B399</color>
+    <color name="PageBackground">#f3efe9</color>
+
 </resources>
