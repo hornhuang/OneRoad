@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bot_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-//        bottomNavigationView.setSelectedItemId(R.id.nav_prime_page);
+        bottomNavigationView.setSelectedItemId(R.id.nav_prime_page);
     }
 
 }
