@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 
 import com.example.oneroad.R;
 
-public class SplashActivity extends Activity {
+public class SplashActivity extends BaseActivity {
 
     private final int SPLASH_DISPLAY_TIME_LENGH = 000;//设置闪屏时间三秒
     private Handler jumpHandler;//延迟执行，用于跳转

@@ -10,4 +10,7 @@
     <color name="PageTextBackground">#ffC6B399</color>
     <color name="PageBackground">#f3efe9</color>
 
+    //common color
+    <color name="white">#fff</color>
+    <color name="black">#000</color>
 </resources>

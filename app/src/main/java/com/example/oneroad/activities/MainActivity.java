@@ -16,7 +16,7 @@ import com.example.oneroad.fragments.NavMineFragment;
 import com.example.oneroad.fragments.NavPrimePageFragment;
 import com.example.oneroad.fragments.NavRouteFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private BottomNavigationView bottomNavigationView;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

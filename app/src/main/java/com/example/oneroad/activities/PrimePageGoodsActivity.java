@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.example.oneroad.R;
 
-public class PrimePageGoodsActivity extends AppCompatActivity {
+public class PrimePageGoodsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
