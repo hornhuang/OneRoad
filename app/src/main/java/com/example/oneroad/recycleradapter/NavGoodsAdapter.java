@@ -1,7 +1,6 @@
 package com.example.oneroad.recycleradapter;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,10 +16,15 @@ import com.example.oneroad.fragments.NavGoodsFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.VH> {
+public class NavGoodsAdapter extends RecyclerView.Adapter<NavGoodsAdapter.VH> {
 
     private List<NavGoodsGoods> mData = new ArrayList<>();
     private NavGoodsFragment navGoodsFragment = new NavGoodsFragment();
+
+    public NavGoodsAdapter(List<NavGoodsGoods> mData, NavGoodsFragment navGoodsFragment) {
+        this.mData = mData;
+        this.navGoodsFragment = navGoodsFragment;
+    }
 
     @Override
     public void onBindViewHolder(@NonNull VH vh, int i) {
@@ -51,8 +55,9 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.VH> {
 
         public VH(@NonNull View itemView) {
             super(itemView);
-            itemView.getLayoutParams().height = 300;
+            itemView.getLayoutParams().width = navGoodsFragment.getActivity().getWindowManager().getDefaultDisplay().getWidth() / 2;
             imageView = (ImageView) itemView.findViewById(R.id.nav_goods_goods_item);
         }
     }
+
 }

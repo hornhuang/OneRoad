@@ -30,15 +30,16 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="200dp"
                 android:padding="8dp"
+                android:background="@color/white"
                 android:src="@drawable/ima"
                 android:scaleType="fitXY"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/nav_goods_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:padding="4dp"/>
 

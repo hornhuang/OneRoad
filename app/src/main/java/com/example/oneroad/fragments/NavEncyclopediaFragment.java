@@ -149,7 +149,7 @@ public class NavEncyclopediaFragment extends Fragment implements PictureForRecyc
         new Thread(){
             @Override
             public void run() {
-                while (mGoodsRecyclerList.size() < 6){
+                while (mGoodsRecyclerList.size() < 15){
                     try {
                         sleep(100);
                         getImage();
