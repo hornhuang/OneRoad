@@ -5,14 +5,21 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.oneroad.R;
 import com.example.oneroad.classes.NavGoodsGoods;
+import com.example.oneroad.classes.NavMineCollection;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.BitmapCallback;
+
+import java.util.List;
 
 import okhttp3.Call;
 
@@ -25,6 +32,15 @@ public class NavMineFragment extends Fragment implements View.OnClickListener,Pi
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private View mFragmentView;
+    private Button mLogUp,mLogIn;
+    private LinearLayout mCollect, mOrder, mRoutes, mStrategy, mCyclopedia,
+        mMoreSets, mAboutUs;
+
+    //我的收藏 RecyclerView
+    private RecyclerView mRecyclerView;
+    private List<NavMineCollection> mList;
 
     public NavMineFragment() {
         // Required empty public constructor
@@ -52,7 +68,8 @@ public class NavMineFragment extends Fragment implements View.OnClickListener,Pi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_nav_mine, container, false);
+        mFragmentView =  inflater.inflate(R.layout.fragment_nav_mine, container, false);
+        return mFragmentView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -68,10 +85,74 @@ public class NavMineFragment extends Fragment implements View.OnClickListener,Pi
         mListener = null;
     }
 
+    // 绑定点击的监听事件
+    private void iniClick(){
+        mLogUp = (Button) mFragmentView.findViewById(R.id.nav_mine_sigh_in);
+        mLogIn = (Button) mFragmentView.findViewById(R.id.nav_mine_sigh_up);
+        mCollect = (LinearLayout) mFragmentView.findViewById(R.id.nav_mine_collect);
+        mOrder = (LinearLayout) mFragmentView.findViewById(R.id.nav_mine_order);
+        mRoutes = (LinearLayout) mFragmentView.findViewById(R.id.nav_mine_routes);
+        mStrategy = (LinearLayout) mFragmentView.findViewById(R.id.nav_mine_strategy);
+        mCyclopedia = (LinearLayout) mFragmentView.findViewById(R.id.nav_mine_cyclopedia);
+        mMoreSets = (LinearLayout) mFragmentView.findViewById(R.id.nav_mine_more_sets);
+        mAboutUs = (LinearLayout) mFragmentView.findViewById(R.id.nav_mine_about_us);;
+        mLogUp.setOnClickListener(this);
+        mLogIn.setOnClickListener(this);
+        mCollect.setOnClickListener(this);
+        mOrder.setOnClickListener(this);
+        mRoutes.setOnClickListener(this);
+        mStrategy.setOnClickListener(this);
+        mCyclopedia.setOnClickListener(this);
+        mMoreSets.setOnClickListener(this);
+        mAboutUs.setOnClickListener(this);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-//            case R.id.
+            case R.id.nav_mine_user_image://用户头像
+                Toast.makeText(getActivity(),"you click!",Toast.LENGTH_SHORT).show();
+
+                break;
+            case R.id.nav_mine_sigh_up://注册
+                Toast.makeText(getActivity(),"you click!",Toast.LENGTH_SHORT).show();
+
+                break;
+            case R.id.nav_mine_sigh_in://登入
+                Toast.makeText(getActivity(),"you click!",Toast.LENGTH_LONG).show();
+
+                break;
+            case R.id.nav_mine_collect://收藏
+                Toast.makeText(getActivity(),"you click!",Toast.LENGTH_LONG).show();
+
+                break;
+            case R.id.nav_mine_order://订单
+                Toast.makeText(getActivity(),"you click!",Toast.LENGTH_LONG).show();
+
+                break;
+            case R.id.nav_mine_routes://路线
+                Toast.makeText(getActivity(),"you click!",Toast.LENGTH_LONG).show();
+
+                break;
+            case R.id.nav_mine_strategy://攻略
+                Toast.makeText(getActivity(),"you click!",Toast.LENGTH_LONG).show();
+
+                break;
+            case R.id.nav_mine_cyclopedia://百科
+                Toast.makeText(getActivity(),"you click!",Toast.LENGTH_LONG).show();
+
+                break;
+            case R.id.nav_mine_recycler_view:
+                // do nothing ...
+                break;
+            case R.id.nav_mine_more_sets://设置
+                Toast.makeText(getActivity(),"you click!",Toast.LENGTH_LONG).show();
+
+                break;
+            case R.id.nav_mine_about_us://我们
+                Toast.makeText(getActivity(),"you click!",Toast.LENGTH_LONG).show();
+
+                break;
         }
     }
 
