@@ -36,5 +36,5 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.zhy:okhttputils:2.6.2'//okHttp 封装库
-
+    implementation 'de.hdodenhof:circleimageview:3.0.0'//圆形头像控件
 }

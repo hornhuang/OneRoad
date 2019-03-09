@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/PageBackground"
     tools:context=".fragments.NavRouteFragment">
 
     <LinearLayout
@@ -10,12 +11,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!--    天气查询    -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
 
         </LinearLayout>
+
+        <!--    四大分类    -->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,7 +36,7 @@
                 android:background="?android:attr/listDivider"/>
 
             <ImageView
-                android:id="@+id/nav_route_image_1"
+                android:id="@+id/nav_route_species_image_1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
@@ -40,7 +45,7 @@
                 android:scaleType="fitXY"/>
 
             <ImageView
-                android:id="@+id/nav_route_image_2"
+                android:id="@+id/nav_route_species_image_2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
@@ -49,7 +54,7 @@
                 android:scaleType="fitXY" />
 
             <ImageView
-                android:id="@+id/nav_route_image_3"
+                android:id="@+id/nav_route_species_image_3"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
@@ -90,7 +95,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:textSize="25dp"
-                        android:text="人气景点"/>
+                        android:text=" 人气景点"/>
 
                     <View
                         android:layout_width="110dp"
@@ -127,6 +132,7 @@
                         android:scaleType="fitXY" />
 
                     <ImageView
+                        android:id="@+id/nav_route_scenic_image_1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/ima"
@@ -147,6 +153,7 @@
                         android:scaleType="fitXY" />
 
                     <ImageView
+                        android:id="@+id/nav_route_scenic_image_2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/ima"
@@ -167,6 +174,7 @@
                         android:scaleType="fitXY" />
 
                     <ImageView
+                        android:id="@+id/nav_route_scenic_image_3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/ima"
@@ -208,7 +216,7 @@
                             android:layout_width="110dp"
                             android:layout_height="wrap_content"
                             android:textSize="25dp"
-                            android:text="人气景点"/>
+                            android:text=" 人气景点"/>
 
                         <View
                             android:layout_width="110dp"
@@ -254,6 +262,7 @@
                             android:scaleType="fitXY" />
 
                         <ImageView
+                            android:id="@+id/nav_route_routes_image_1_1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:src="@drawable/ima"
@@ -274,6 +283,7 @@
                             android:scaleType="fitXY" />
 
                         <ImageView
+                            android:id="@+id/nav_route_routes_image_1_2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:src="@drawable/ima"
@@ -302,6 +312,7 @@
                             android:scaleType="fitXY" />
 
                         <ImageView
+                            android:id="@+id/nav_route_routes_image_2_1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:src="@drawable/ima"
@@ -322,6 +333,7 @@
                             android:scaleType="fitXY"/>
 
                         <ImageView
+                            android:id="@+id/nav_route_routes_image_2_2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:src="@drawable/ima"

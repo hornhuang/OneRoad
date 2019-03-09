@@ -1,6 +1,7 @@
 package com.example.oneroad.fragments;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,22 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.oneroad.R;
+import com.example.oneroad.classes.NavGoodsGoods;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.BitmapCallback;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link NavMineFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link NavMineFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class NavMineFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+import okhttp3.Call;
+
+public class NavMineFragment extends Fragment implements View.OnClickListener,PictureForRecyclerView {
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -34,15 +30,6 @@ public class NavMineFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment NavMineFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static NavMineFragment newInstance(String param1, String param2) {
         NavMineFragment fragment = new NavMineFragment();
         Bundle args = new Bundle();
@@ -81,16 +68,50 @@ public class NavMineFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+//            case R.id.
+        }
+    }
+
+    @Override
+    public void downloadPicture() {
+        String url = "http://47.107.132.227/form";
+        OkHttpUtils
+                .get()//
+                .url(url)//
+                .tag(this)//
+                .build()//
+                .connTimeOut(20000)//连接超时
+                .readTimeOut(20000)//读取超时
+                .writeTimeOut(20000)//写超时
+                .execute(new BitmapCallback()
+                {
+                    @Override
+                    public void onError(Call call, Exception e, int id)
+                    {
+                        // show error message to users
+                    }
+
+                    @Override
+                    public void onResponse(Bitmap bitmap, int id)
+                    {
+                        // add bitmap to list here
+                    }
+                });
+    }
+
+    @Override
+    public void getImage() {
+
+    }
+
+    @Override
+    public void iniGoodsRecyclerView() {
+
+    }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
