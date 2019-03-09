@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/PageBackground"
     tools:context=".fragments.NavMineFragment">
 
     <LinearLayout
@@ -11,11 +12,18 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/nav_mine_user_image"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"/>
+            android:layout_weight="2"
+            android:gravity="center">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/nav_mine_user_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,28 +53,33 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            android:layout_weight="2">
+            android:layout_weight="1.5">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center">
 
                 <LinearLayout
                     android:id="@+id/nav_mine_collect"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="我的收藏"
+                        android:textSize="20dp"/>
 
                     <View
-                        android:layout_width="match_parent"
+                        android:layout_width="100dp"
                         android:layout_height="2dp"
                         android:background="?android:attr/listDivider"/>
 
@@ -77,15 +90,19 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:gravity="center">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="我的收藏"
+                        android:textSize="20dp"/>
 
                     <View
-                        android:layout_width="match_parent"
+                        android:layout_width="100dp"
                         android:layout_height="2dp"
                         android:background="?android:attr/listDivider"/>
 
@@ -96,15 +113,19 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:gravity="center">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="我的收藏"
+                        android:textSize="20dp"/>
 
                     <View
-                        android:layout_width="match_parent"
+                        android:layout_width="100dp"
                         android:layout_height="2dp"
                         android:background="?android:attr/listDivider"/>
 
@@ -123,15 +144,19 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="我发布的攻略"
+                        android:textSize="25dp"/>
 
                     <View
-                        android:layout_width="match_parent"
+                        android:layout_width="150dp"
                         android:layout_height="2dp"
                         android:background="?android:attr/listDivider"/>
 
@@ -142,15 +167,19 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="我发布的百科"
+                        android:textSize="25dp"/>
 
                     <View
-                        android:layout_width="match_parent"
+                        android:layout_width="150dp"
                         android:layout_height="2dp"
                         android:background="?android:attr/listDivider"/>
 
@@ -161,32 +190,42 @@
         </LinearLayout>
 
         <!--    我的收藏    -->
-        <RelativeLayout
-            android:id="@+id/nav_mine_recycler_view"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4"/>
+            android:layout_weight="6">
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nav_mine_recycler_view"/>
+
+        </LinearLayout>
 
         <!--    底部两个按钮  -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="0.5">
 
             <LinearLayout
                 android:id="@+id/nav_mine_more_sets"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="更多设置"
+                    android:textSize="25dp"/>
 
                 <View
-                    android:layout_width="match_parent"
+                    android:layout_width="100dp"
                     android:layout_height="2dp"
                     android:background="?android:attr/listDivider"/>
 
@@ -197,15 +236,19 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="关于我们"
+                    android:textSize="25dp"/>
 
                 <View
-                    android:layout_width="match_parent"
+                    android:layout_width="100dp"
                     android:layout_height="2dp"
                     android:background="?android:attr/listDivider"/>
 

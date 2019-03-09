@@ -5,16 +5,16 @@ import android.graphics.Bitmap;
 public class NavMineCollection {
 
     private int imageId;
-    private Bitmap goodsImage;
+    private Bitmap mCollectImage;
 
     public NavMineCollection(Bitmap goodsImage) {
         this.imageId = imageId;
-        this.goodsImage = goodsImage;
+        this.mCollectImage = goodsImage;
     }
 
     public NavMineCollection(int imageId, Bitmap goodsImage) {
         this.imageId = imageId;
-        this.goodsImage = goodsImage;
+        this.mCollectImage = goodsImage;
     }
 
     public int getImageId() {
@@ -25,12 +25,12 @@ public class NavMineCollection {
         this.imageId = imageId;
     }
 
-    public Bitmap getGoodsImage() {
-        return goodsImage;
+    public Bitmap getmCollectImage() {
+        return mCollectImage;
     }
 
-    public void setGoodsImage(Bitmap goodsImage) {
-        this.goodsImage = goodsImage;
+    public void setCollectImage(Bitmap goodsImage) {
+        this.mCollectImage = goodsImage;
     }
 
 

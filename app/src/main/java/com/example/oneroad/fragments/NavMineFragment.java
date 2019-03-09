@@ -4,7 +4,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +19,14 @@ import android.widget.Toast;
 import com.example.oneroad.R;
 import com.example.oneroad.classes.NavGoodsGoods;
 import com.example.oneroad.classes.NavMineCollection;
+import com.example.oneroad.recycleradapter.NavMineAdapter;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.BitmapCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
 
 public class NavMineFragment extends Fragment implements View.OnClickListener,PictureForRecyclerView {
@@ -34,6 +40,7 @@ public class NavMineFragment extends Fragment implements View.OnClickListener,Pi
     private OnFragmentInteractionListener mListener;
 
     private View mFragmentView;
+    private CircleImageView mUserImage;
     private Button mLogUp,mLogIn;
     private LinearLayout mCollect, mOrder, mRoutes, mStrategy, mCyclopedia,
         mMoreSets, mAboutUs;
@@ -41,6 +48,14 @@ public class NavMineFragment extends Fragment implements View.OnClickListener,Pi
     //我的收藏 RecyclerView
     private RecyclerView mRecyclerView;
     private List<NavMineCollection> mList;
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if ( msg.what == 0x0 ){
+                iniGoodsRecyclerView();
+            }
+        }
+    };
 
     public NavMineFragment() {
         // Required empty public constructor
@@ -69,6 +84,8 @@ public class NavMineFragment extends Fragment implements View.OnClickListener,Pi
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mFragmentView =  inflater.inflate(R.layout.fragment_nav_mine, container, false);
+        getImage();
+        iniClick();
         return mFragmentView;
     }
 
@@ -87,6 +104,7 @@ public class NavMineFragment extends Fragment implements View.OnClickListener,Pi
 
     // 绑定点击的监听事件
     private void iniClick(){
+        mUserImage = (CircleImageView) mFragmentView.findViewById(R.id.nav_mine_user_image) ;
         mLogUp = (Button) mFragmentView.findViewById(R.id.nav_mine_sigh_in);
         mLogIn = (Button) mFragmentView.findViewById(R.id.nav_mine_sigh_up);
         mCollect = (LinearLayout) mFragmentView.findViewById(R.id.nav_mine_collect);
@@ -95,7 +113,8 @@ public class NavMineFragment extends Fragment implements View.OnClickListener,Pi
         mStrategy = (LinearLayout) mFragmentView.findViewById(R.id.nav_mine_strategy);
         mCyclopedia = (LinearLayout) mFragmentView.findViewById(R.id.nav_mine_cyclopedia);
         mMoreSets = (LinearLayout) mFragmentView.findViewById(R.id.nav_mine_more_sets);
-        mAboutUs = (LinearLayout) mFragmentView.findViewById(R.id.nav_mine_about_us);;
+        mAboutUs = (LinearLayout) mFragmentView.findViewById(R.id.nav_mine_about_us);
+        mUserImage.setOnClickListener(this);
         mLogUp.setOnClickListener(this);
         mLogIn.setOnClickListener(this);
         mCollect.setOnClickListener(this);
@@ -105,6 +124,9 @@ public class NavMineFragment extends Fragment implements View.OnClickListener,Pi
         mCyclopedia.setOnClickListener(this);
         mMoreSets.setOnClickListener(this);
         mAboutUs.setOnClickListener(this);
+
+        mUserImage.getLayoutParams().width = mUserImage.getLayoutParams().height;// 设置头像大小
+        mUserImage.setImageResource(R.drawable.ima);
     }
 
     @Override
@@ -179,18 +201,42 @@ public class NavMineFragment extends Fragment implements View.OnClickListener,Pi
                     public void onResponse(Bitmap bitmap, int id)
                     {
                         // add bitmap to list here
+                        mList.add(new NavMineCollection(bitmap));
                     }
                 });
     }
 
     @Override
     public void getImage() {
-
+        mList = new ArrayList<>();
+        new Thread(){
+            @Override
+            public void run() {
+                int i = 0 ;
+                while ( i++ < 10 ){
+                    try {
+                        downloadPicture();
+                        sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Message message = new Message();
+                message.what = 0x0;
+                handler.sendMessage(message);
+            }
+        }.start();
     }
 
     @Override
     public void iniGoodsRecyclerView() {
-
+        List<NavMineCollection> mData = mList;
+        mRecyclerView = (RecyclerView) mFragmentView.findViewById(R.id.nav_mine_recycler_view);
+        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(),1);
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setNestedScrollingEnabled(false);// 设置本身可以移动
+        mRecyclerView.setAdapter(new NavMineAdapter(this, mData));
     }
 
     public interface OnFragmentInteractionListener {
