@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/PageBackground"
     tools:context=".fragments.NavMineFragment">
 
@@ -98,7 +99,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="我的收藏"
+                        android:text="好物订单"
                         android:textSize="20dp"/>
 
                     <View
@@ -121,7 +122,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="我的收藏"
+                        android:text="我的路线"
                         android:textSize="20dp"/>
 
                     <View
@@ -133,74 +134,83 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <android.support.design.widget.TabLayout
+                android:id="@+id/nav_mine_tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:gravity="center">
 
-                <LinearLayout
+                <android.support.design.widget.TabItem
                     android:id="@+id/nav_mine_strategy"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我发布的攻略"
+                    app:tabMode="fixed"/>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="我发布的攻略"
-                        android:textSize="25dp"/>
-
-                    <View
-                        android:layout_width="150dp"
-                        android:layout_height="2dp"
-                        android:background="?android:attr/listDivider"/>
-
-                </LinearLayout>
-
-                <LinearLayout
+                <android.support.design.widget.TabItem
                     android:id="@+id/nav_mine_cyclopedia"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我发布的百科"
+                    app:tabMode="fixed"/>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="我发布的百科"
-                        android:textSize="25dp"/>
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/nav_mine_strategy"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:gravity="center"-->
+                    <!--android:orientation="vertical">-->
 
-                    <View
-                        android:layout_width="150dp"
-                        android:layout_height="2dp"
-                        android:background="?android:attr/listDivider"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="0dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:gravity="center"-->
+                        <!--android:text="我发布的攻略"-->
+                        <!--android:textSize="25dp"/>-->
 
-                </LinearLayout>
+                    <!--<View-->
+                        <!--android:layout_width="150dp"-->
+                        <!--android:layout_height="2dp"-->
+                        <!--android:background="?android:attr/listDivider"/>-->
 
-            </LinearLayout>
+                <!--</LinearLayout>-->
+
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/nav_mine_cyclopedia"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:gravity="center"-->
+                    <!--android:orientation="vertical">-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="0dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:gravity="center"-->
+                        <!--android:text="我发布的百科"-->
+                        <!--android:textSize="25dp"/>-->
+
+                    <!--<View-->
+                        <!--android:layout_width="150dp"-->
+                        <!--android:layout_height="2dp"-->
+                        <!--android:background="?android:attr/listDivider"/>-->
+
+                <!--</LinearLayout>-->
+
+            </android.support.design.widget.TabLayout>
 
         </LinearLayout>
 
         <!--    我的收藏    -->
-        <LinearLayout
+        <android.support.v4.view.ViewPager
+            android:id="@+id/nav_mine_view_paper"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="6">
-
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/nav_mine_recycler_view"/>
-
-        </LinearLayout>
+            android:layout_weight="6" />
 
         <!--    底部两个按钮  -->
         <LinearLayout

@@ -1,7 +1,6 @@
 package com.example.oneroad.fragments;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,11 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.oneroad.R;
 import com.example.oneroad.classes.PrimePageListGoods;
-import com.example.oneroad.recycleradapter.NavPrimePageAdapter;
+import com.example.oneroad.adapter.NavPrimePageAdapter;
 import com.example.oneroad.utils.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;

@@ -1,4 +1,4 @@
-package com.example.oneroad.recycleradapter;
+package com.example.oneroad.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,22 +9,30 @@ import android.widget.ImageView;
 
 import com.example.oneroad.R;
 import com.example.oneroad.classes.NavMineCollection;
+import com.example.oneroad.fragments.NavMineCyclopediaFragment;
 import com.example.oneroad.fragments.NavMineFragment;
+import com.example.oneroad.fragments.NavMineStrategyFragment;
 
 import java.util.List;
 
 public class NavMineAdapter extends RecyclerView.Adapter<NavMineAdapter.VH> {
 
-    private NavMineFragment mMineFragment;
+    private NavMineCyclopediaFragment mineCyclopediaFragment;
+    private NavMineStrategyFragment mineStrategyFragment;
     private List<NavMineCollection> mList;
 
-    public NavMineAdapter(NavMineFragment mMineFragment, List<NavMineCollection> mList) {
-        this.mMineFragment = mMineFragment;
+    public NavMineAdapter(NavMineStrategyFragment mMineFragment, List<NavMineCollection> mList) {
+        this.mineStrategyFragment = mMineFragment;
         this.mList = mList;
     }
 
-    public NavMineAdapter(NavMineFragment mMineFragment) {
-        this.mMineFragment = mMineFragment;
+    public NavMineAdapter(NavMineCyclopediaFragment mineCyclopediaFragment, List<NavMineCollection> mList) {
+        this.mineCyclopediaFragment = mineCyclopediaFragment;
+        this.mList = mList;
+    }
+
+    public NavMineAdapter(NavMineStrategyFragment mMineFragment) {
+        this.mineStrategyFragment = mMineFragment;
     }
 
     @NonNull

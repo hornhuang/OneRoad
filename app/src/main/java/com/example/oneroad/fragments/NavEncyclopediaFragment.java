@@ -1,6 +1,5 @@
 package com.example.oneroad.fragments;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,18 +7,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
 
 import com.example.oneroad.R;
 import com.example.oneroad.classes.EncyclopediaListGoods;
-import com.example.oneroad.classes.PrimePageListGoods;
-import com.example.oneroad.recycleradapter.EncyclopediaAdapter;
+import com.example.oneroad.adapter.EncyclopediaAdapter;
 import com.example.oneroad.utils.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;

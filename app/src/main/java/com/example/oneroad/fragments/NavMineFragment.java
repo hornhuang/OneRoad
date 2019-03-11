@@ -1,14 +1,12 @@
 package com.example.oneroad.fragments;
 
-import android.content.Context;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import android.support.design.widget.TabItem;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,19 +15,15 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.oneroad.R;
-import com.example.oneroad.classes.NavGoodsGoods;
+import com.example.oneroad.adapter.ViewPagerAdapter;
 import com.example.oneroad.classes.NavMineCollection;
-import com.example.oneroad.recycleradapter.NavMineAdapter;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.BitmapCallback;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.Call;
 
-public class NavMineFragment extends Fragment implements View.OnClickListener,PictureForRecyclerView {
+public class NavMineFragment extends Fragment implements View.OnClickListener {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -42,20 +36,20 @@ public class NavMineFragment extends Fragment implements View.OnClickListener,Pi
     private View mFragmentView;
     private CircleImageView mUserImage;
     private Button mLogUp,mLogIn;
-    private LinearLayout mCollect, mOrder, mRoutes, mStrategy, mCyclopedia,
+    private TabItem mStrategy, mCyclopedia;
+    private LinearLayout mCollect, mOrder, mRoutes,
         mMoreSets, mAboutUs;
 
-    //我的收藏 RecyclerView
-    private RecyclerView mRecyclerView;
-    private List<NavMineCollection> mList;
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            if ( msg.what == 0x0 ){
-                iniGoodsRecyclerView();
-            }
-        }
+    // TabLayout
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private List<Fragment> fragmentList = new ArrayList<>();
+    private String[] tabTitleArray = new String[]{
+            "我发布的攻略",
+            "我发布的百科"
     };
+
+    private List<NavMineCollection> mList;
 
     public NavMineFragment() {
         // Required empty public constructor
@@ -84,8 +78,9 @@ public class NavMineFragment extends Fragment implements View.OnClickListener,Pi
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mFragmentView =  inflater.inflate(R.layout.fragment_nav_mine, container, false);
-        getImage();
+//        getImage();
         iniClick();
+        createTabLayout();
         return mFragmentView;
     }
 
@@ -110,23 +105,41 @@ public class NavMineFragment extends Fragment implements View.OnClickListener,Pi
         mCollect = (LinearLayout) mFragmentView.findViewById(R.id.nav_mine_collect);
         mOrder = (LinearLayout) mFragmentView.findViewById(R.id.nav_mine_order);
         mRoutes = (LinearLayout) mFragmentView.findViewById(R.id.nav_mine_routes);
-        mStrategy = (LinearLayout) mFragmentView.findViewById(R.id.nav_mine_strategy);
-        mCyclopedia = (LinearLayout) mFragmentView.findViewById(R.id.nav_mine_cyclopedia);
+//        mStrategy = (TabItem) mFragmentView.findViewById(R.id.nav_mine_strategy);
+//        mCyclopedia = (TabItem) mFragmentView.findViewById(R.id.nav_mine_cyclopedia);
         mMoreSets = (LinearLayout) mFragmentView.findViewById(R.id.nav_mine_more_sets);
         mAboutUs = (LinearLayout) mFragmentView.findViewById(R.id.nav_mine_about_us);
+        viewPager = (ViewPager) mFragmentView.findViewById(R.id.nav_mine_view_paper);
         mUserImage.setOnClickListener(this);
         mLogUp.setOnClickListener(this);
         mLogIn.setOnClickListener(this);
         mCollect.setOnClickListener(this);
         mOrder.setOnClickListener(this);
         mRoutes.setOnClickListener(this);
-        mStrategy.setOnClickListener(this);
-        mCyclopedia.setOnClickListener(this);
+//        mStrategy.setOnClickListener(this);
+//        mCyclopedia.setOnClickListener(this);
         mMoreSets.setOnClickListener(this);
         mAboutUs.setOnClickListener(this);
 
         mUserImage.getLayoutParams().width = mUserImage.getLayoutParams().height;// 设置头像大小
         mUserImage.setImageResource(R.drawable.ima);
+    }
+
+    private void createTabLayout(){
+        tabLayout = (TabLayout) mFragmentView.findViewById(R.id.nav_mine_tab_layout);
+//        for (int i = 0; i < tabTitleArray.length; i++) {
+//            tabLayout.addTab(tabLayout.newTab().setText(tabTitleArray[i]));
+//        }
+//        tabLayout.setTabMode (TabLayout.MODE_SCROLLABLE) //设置平铺
+        fragmentList.add(new NavMineStrategyFragment());
+        fragmentList.add(new NavMineCyclopediaFragment());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(
+                getActivity().getSupportFragmentManager(), this, fragmentList, tabTitleArray);
+        viewPager.setAdapter(adapter);
+
+
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabsFromPagerAdapter(adapter);//给Tabs设置适配器
     }
 
     @Override
@@ -156,17 +169,17 @@ public class NavMineFragment extends Fragment implements View.OnClickListener,Pi
                 Toast.makeText(getActivity(),"you click!",Toast.LENGTH_LONG).show();
 
                 break;
-            case R.id.nav_mine_strategy://攻略
-                Toast.makeText(getActivity(),"you click!",Toast.LENGTH_LONG).show();
-
-                break;
-            case R.id.nav_mine_cyclopedia://百科
-                Toast.makeText(getActivity(),"you click!",Toast.LENGTH_LONG).show();
-
-                break;
-            case R.id.nav_mine_recycler_view:
-                // do nothing ...
-                break;
+//            case R.id.nav_mine_strategy://攻略
+//                Toast.makeText(getActivity(),"you click!",Toast.LENGTH_LONG).show();
+//
+//                break;
+//            case R.id.nav_mine_cyclopedia://百科
+//                Toast.makeText(getActivity(),"you click!",Toast.LENGTH_LONG).show();
+//
+//                break;
+//            case R.id.nav_mine_recycler_view:
+//                // do nothing ...
+//                break;
             case R.id.nav_mine_more_sets://设置
                 Toast.makeText(getActivity(),"you click!",Toast.LENGTH_LONG).show();
 
@@ -178,66 +191,66 @@ public class NavMineFragment extends Fragment implements View.OnClickListener,Pi
         }
     }
 
-    @Override
-    public void downloadPicture() {
-        String url = "http://47.107.132.227/form";
-        OkHttpUtils
-                .get()//
-                .url(url)//
-                .tag(this)//
-                .build()//
-                .connTimeOut(20000)//连接超时
-                .readTimeOut(20000)//读取超时
-                .writeTimeOut(20000)//写超时
-                .execute(new BitmapCallback()
-                {
-                    @Override
-                    public void onError(Call call, Exception e, int id)
-                    {
-                        // show error message to users
-                    }
-
-                    @Override
-                    public void onResponse(Bitmap bitmap, int id)
-                    {
-                        // add bitmap to list here
-                        mList.add(new NavMineCollection(bitmap));
-                    }
-                });
-    }
-
-    @Override
-    public void getImage() {
-        mList = new ArrayList<>();
-        new Thread(){
-            @Override
-            public void run() {
-                int i = 0 ;
-                while ( i++ < 10 ){
-                    try {
-                        downloadPicture();
-                        sleep(200);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                Message message = new Message();
-                message.what = 0x0;
-                handler.sendMessage(message);
-            }
-        }.start();
-    }
-
-    @Override
-    public void iniGoodsRecyclerView() {
-        List<NavMineCollection> mData = mList;
-        mRecyclerView = (RecyclerView) mFragmentView.findViewById(R.id.nav_mine_recycler_view);
-        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(),1);
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setNestedScrollingEnabled(false);// 设置本身可以移动
-        mRecyclerView.setAdapter(new NavMineAdapter(this, mData));
-    }
+//    @Override
+//    public void downloadPicture() {
+//        String url = "http://47.107.132.227/form";
+//        OkHttpUtils
+//                .get()//
+//                .url(url)//
+//                .tag(this)//
+//                .build()//
+//                .connTimeOut(20000)//连接超时
+//                .readTimeOut(20000)//读取超时
+//                .writeTimeOut(20000)//写超时
+//                .execute(new BitmapCallback()
+//                {
+//                    @Override
+//                    public void onError(Call call, Exception e, int id)
+//                    {
+//                        // show error message to users
+//                    }
+//
+//                    @Override
+//                    public void onResponse(Bitmap bitmap, int id)
+//                    {
+//                        // add bitmap to list here
+//                        mList.add(new NavMineCollection(bitmap));
+//                    }
+//                });
+//    }
+//
+//    @Override
+//    public void getImage() {
+//        mList = new ArrayList<>();
+//        new Thread(){
+//            @Override
+//            public void run() {
+//                int i = 0 ;
+//                while ( i++ < 10 ){
+//                    try {
+//                        downloadPicture();
+//                        sleep(200);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                Message message = new Message();
+//                message.what = 0x0;
+//                handler.sendMessage(message);
+//            }
+//        }.start();
+//    }
+//
+//    @Override
+//    public void iniGoodsRecyclerView() {
+//        List<NavMineCollection> mData = mList;
+//        mRecyclerView = (RecyclerView) mFragmentView.findViewById(R.id.nav_mine_recycler_view);
+//        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(),1);
+//        mRecyclerView.setLayoutManager(manager);
+//        mRecyclerView.setHasFixedSize(true);
+//        mRecyclerView.setNestedScrollingEnabled(false);// 设置本身可以移动
+//        mRecyclerView.setAdapter(new NavMineAdapter(this, mData));
+//    }
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

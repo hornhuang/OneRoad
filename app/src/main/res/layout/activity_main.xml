@@ -19,6 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/windowBackground"
-            app:menu="@menu/bot_nav_menu"/>
+            app:menu="@menu/bot_nav_menu"
+            app:labelVisibilityMode="labeled"/>
+        <!--设置文字总是可见-->
 
 </LinearLayout>
