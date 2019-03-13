@@ -12,4 +12,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
     </style>
 
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">@dimen/textsizi</item>
+    </style>
+
 </resources>

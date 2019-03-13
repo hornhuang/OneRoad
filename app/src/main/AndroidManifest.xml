@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.PrimePageGoodsActivity"></activity>
+        <activity android:name=".activities.LogUpActivity"></activity>
+        <activity android:name=".activities.LogInActivity" />
+        <activity android:name=".activities.PrimePageGoodsActivity" />
         <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

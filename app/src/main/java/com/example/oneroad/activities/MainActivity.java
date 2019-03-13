@@ -18,6 +18,8 @@ import com.example.oneroad.fragments.NavRouteFragment;
 
 public class MainActivity extends BaseActivity {
 
+    private int mRecyclerLength = 0;
+
     private BottomNavigationView bottomNavigationView;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -99,6 +101,14 @@ public class MainActivity extends BaseActivity {
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bot_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         bottomNavigationView.setSelectedItemId(R.id.nav_prime_page);
+    }
+
+    public int getmRecyclerLength() {
+        return mRecyclerLength;
+    }
+
+    public void setmRecyclerLength(int mRecyclerLength) {
+        this.mRecyclerLength = mRecyclerLength;
     }
 
 }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,12 +26,10 @@ import java.util.List;
 import okhttp3.Call;
 
 public class NavMineStrategyFragment extends Fragment implements PictureForRecyclerView{
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -48,7 +47,6 @@ public class NavMineStrategyFragment extends Fragment implements PictureForRecyc
             }
         }
     };
-
 
     public NavMineStrategyFragment() {
         // Required empty public constructor
@@ -153,10 +151,11 @@ public class NavMineStrategyFragment extends Fragment implements PictureForRecyc
     public void iniGoodsRecyclerView() {
         List<NavMineCollection> mData = mList;
         mRecyclerView = (RecyclerView) mFragmentView.findViewById(R.id.nav_mine_recycler_view);
-        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(),1);
+        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(),2);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setNestedScrollingEnabled(false);// 设置本身可以移动
+        mRecyclerView.setNestedScrollingEnabled(true);// 设置本身可以移动
+        mRecyclerView.getLayoutParams().height = 300 * mData.size();
         mRecyclerView.setAdapter(new NavMineAdapter(this, mData));
     }
 

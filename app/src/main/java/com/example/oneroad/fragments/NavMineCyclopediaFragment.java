@@ -7,14 +7,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 
 import com.example.oneroad.R;
+import com.example.oneroad.activities.MainActivity;
 import com.example.oneroad.adapter.NavMineAdapter;
 import com.example.oneroad.classes.NavMineCollection;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -45,7 +48,6 @@ public class NavMineCyclopediaFragment extends Fragment implements PictureForRec
         @Override
         public void handleMessage(Message msg) {
             iniGoodsRecyclerView();
-
         }
     };
 
@@ -76,7 +78,7 @@ public class NavMineCyclopediaFragment extends Fragment implements PictureForRec
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mFragment = inflater.inflate(R.layout.fragment_nav_mine_cyclopedia, container, false);
-
+        getImage();
         return mFragment;
     }
 
@@ -129,14 +131,12 @@ public class NavMineCyclopediaFragment extends Fragment implements PictureForRec
             public void run() {
                 int i = 0 ;
                 while ( mList.size() < 10 ){
-                    downloadPicture();
-//                    if ( mList.size() == 9 ){
-//                        try {
-//                            sleep(200);
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
+                    try {
+                        downloadPicture();
+                        sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
                 Message msg = new Message();
                 msg.what = 0x0;
@@ -149,10 +149,11 @@ public class NavMineCyclopediaFragment extends Fragment implements PictureForRec
     public void iniGoodsRecyclerView() {
         List<NavMineCollection> mData = mList;
         mRecyclerView = (RecyclerView) mFragment.findViewById(R.id.nav_mine_recycler_view);
-        RecyclerView.LayoutManager manager = new GridLayoutManager(getActivity(), 1) ;
+        RecyclerView.LayoutManager manager = new GridLayoutManager(getActivity(), 2) ;
         mRecyclerView.setLayoutManager( manager );
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setNestedScrollingEnabled(false);
+        mRecyclerView.setNestedScrollingEnabled(true);
+        mRecyclerView.getLayoutParams().height = 300 * mData.size();
         mRecyclerView.setAdapter(new NavMineAdapter( this, mData ));
     }
 
@@ -160,4 +161,5 @@ public class NavMineCyclopediaFragment extends Fragment implements PictureForRec
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

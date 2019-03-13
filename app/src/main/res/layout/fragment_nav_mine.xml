@@ -13,24 +13,42 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_height="150dp"
             android:gravity="center">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/nav_mine_user_image"
-                android:layout_width="100dp"
-                android:layout_height="100dp"/>
+            <ImageView
+                android:id="@+id/tv_popup_menu"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:padding="20dp"
+                android:text="Popup Menu"
+                android:longClickable="true"
+                android:gravity="center"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/menu"
+                android:scaleType="fitXY"/>
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/nav_mine_user_image"
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:padding="15dp">
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <Button
                 android:id="@+id/nav_mine_sigh_up"
@@ -38,7 +56,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/transparent"
-                android:text="注册"/>
+                android:text="注册"
+                android:textSize="20dp"/>
 
             <Button
                 android:id="@+id/nav_mine_sigh_in"
@@ -46,15 +65,15 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/transparent"
-                android:text="登陆"/>
+                android:text="登陆"
+                android:textSize="20dp"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:layout_weight="1.5">
+            android:layout_height="50dp"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -134,137 +153,39 @@
 
             </LinearLayout>
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/nav_mine_tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <android.support.design.widget.TabItem
-                    android:id="@+id/nav_mine_strategy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="我发布的攻略"
-                    app:tabMode="fixed"/>
-
-                <android.support.design.widget.TabItem
-                    android:id="@+id/nav_mine_cyclopedia"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="我发布的百科"
-                    app:tabMode="fixed"/>
-
-                <!--<LinearLayout-->
-                    <!--android:id="@+id/nav_mine_strategy"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:gravity="center"-->
-                    <!--android:orientation="vertical">-->
-
-                    <!--<TextView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="0dp"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:gravity="center"-->
-                        <!--android:text="我发布的攻略"-->
-                        <!--android:textSize="25dp"/>-->
-
-                    <!--<View-->
-                        <!--android:layout_width="150dp"-->
-                        <!--android:layout_height="2dp"-->
-                        <!--android:background="?android:attr/listDivider"/>-->
-
-                <!--</LinearLayout>-->
-
-                <!--<LinearLayout-->
-                    <!--android:id="@+id/nav_mine_cyclopedia"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:gravity="center"-->
-                    <!--android:orientation="vertical">-->
-
-                    <!--<TextView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="0dp"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:gravity="center"-->
-                        <!--android:text="我发布的百科"-->
-                        <!--android:textSize="25dp"/>-->
-
-                    <!--<View-->
-                        <!--android:layout_width="150dp"-->
-                        <!--android:layout_height="2dp"-->
-                        <!--android:background="?android:attr/listDivider"/>-->
-
-                <!--</LinearLayout>-->
-
-            </android.support.design.widget.TabLayout>
-
         </LinearLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/nav_mine_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:tabTextAppearance="@style/TabLayoutTextStyle"
+            app:tabIndicatorFullWidth="false">
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/nav_mine_strategy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="我发布的攻略"
+                app:tabMode="fixed"/>
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/nav_mine_cyclopedia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="我发布的百科"
+                app:tabMode="fixed"/>
+
+        </android.support.design.widget.TabLayout>
 
         <!--    我的收藏    -->
         <android.support.v4.view.ViewPager
             android:id="@+id/nav_mine_view_paper"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="6" />
-
-        <!--    底部两个按钮  -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5">
-
-            <LinearLayout
-                android:id="@+id/nav_mine_more_sets"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="更多设置"
-                    android:textSize="25dp"/>
-
-                <View
-                    android:layout_width="100dp"
-                    android:layout_height="2dp"
-                    android:background="?android:attr/listDivider"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/nav_mine_about_us"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="关于我们"
-                    android:textSize="25dp"/>
-
-                <View
-                    android:layout_width="100dp"
-                    android:layout_height="2dp"
-                    android:background="?android:attr/listDivider"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
+            android:layout_weight="1" />
 
     </LinearLayout>
 

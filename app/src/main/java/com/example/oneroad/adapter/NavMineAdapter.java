@@ -21,8 +21,8 @@ public class NavMineAdapter extends RecyclerView.Adapter<NavMineAdapter.VH> {
     private NavMineStrategyFragment mineStrategyFragment;
     private List<NavMineCollection> mList;
 
-    public NavMineAdapter(NavMineStrategyFragment mMineFragment, List<NavMineCollection> mList) {
-        this.mineStrategyFragment = mMineFragment;
+    public NavMineAdapter(NavMineStrategyFragment navMineStrategyFragment, List<NavMineCollection> mList) {
+        this.mineStrategyFragment = navMineStrategyFragment;
         this.mList = mList;
     }
 
@@ -64,7 +64,7 @@ public class NavMineAdapter extends RecyclerView.Adapter<NavMineAdapter.VH> {
 
         public VH(@NonNull View itemView) {
             super(itemView);
-            itemView.getLayoutParams().height = 300;
+            itemView.getLayoutParams().height = 650;
             imageView = itemView.findViewById(R.id.nav_prime_page_list_item);
         }
     }
