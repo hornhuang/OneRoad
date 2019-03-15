@@ -5,32 +5,24 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.PopupMenu;
-import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.oneroad.R;
 import com.example.oneroad.activities.LogInActivity;
 import com.example.oneroad.activities.LogUpActivity;
-import com.example.oneroad.activities.MainActivity;
 import com.example.oneroad.adapter.ViewPagerAdapter;
-import com.example.oneroad.classes.NavMineCollection;
+import com.example.oneroad.goods.NavMineCollection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +39,7 @@ public class NavMineFragment extends Fragment implements View.OnClickListener {
 
     private OnFragmentInteractionListener mListener;
 
+    //控件
     private View mFragmentView;
     private ImageView mPopupMenu;
     private CircleImageView mUserImage;
@@ -65,6 +58,9 @@ public class NavMineFragment extends Fragment implements View.OnClickListener {
             }
         }
     };
+
+    //数据
+    private Intent mTo, mFrom;
     private List<Fragment> fragmentList = new ArrayList<>();
     private String[] tabTitleArray = new String[]{
             "我发布的攻略",
@@ -158,10 +154,14 @@ public class NavMineFragment extends Fragment implements View.OnClickListener {
 
                 break;
             case R.id.nav_mine_sigh_up://注册
-                startActivity(new Intent( getActivity(), LogUpActivity.class));
+                mTo = new Intent( getActivity(), LogUpActivity.class);
+                mTo.putExtra("from", "");
+                startActivity( mTo );
                 break;
             case R.id.nav_mine_sigh_in://登入
-                startActivity(new Intent( getActivity(), LogInActivity.class));
+                mTo = new Intent(  getActivity(), LogInActivity.class );
+                mTo.putExtra("from", "");
+                startActivity( mTo );
                 break;
             case R.id.nav_mine_collect://收藏
                 Toast.makeText(getActivity(),"you click!",Toast.LENGTH_LONG).show();

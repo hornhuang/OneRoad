@@ -11,18 +11,19 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        android:layout_weight="0.75"/>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3"
+        android:paddingRight="5dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="0.75"
             android:orientation="horizontal"
             android:gravity="right">
 
@@ -46,7 +47,8 @@
 
                 <TextView
                     android:layout_width="125dp"
-                    android:layout_height="50dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
                     android:text="点击logo设置头像"/>
 
             </LinearLayout>
@@ -83,6 +85,7 @@
                     android:layout_weight="1.5"/>
 
                 <Button
+                    android:id="@+id/log_up_get_verification_code"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -92,12 +95,21 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/log_up_set_nickname"
+                android:id="@+id/log_up_set_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:ems="10"
-                android:hint="设置昵称"
+                android:hint="设置密码"
+                android:inputType="numberSigned" />
+
+            <EditText
+                android:id="@+id/log_up_set_password_again"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:hint="再次输入密码"
                 android:inputType="numberSigned" />
 
         </LinearLayout>
@@ -105,7 +117,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.75"
+            android:layout_weight="0.5"
             android:orientation="vertical">
 
             <android.support.v7.widget.CardView
@@ -131,14 +143,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.75"
+            android:layout_weight="0.5"
             android:orientation="vertical">
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/log_up_log_in_button"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"/>
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:layout_width="56dp"

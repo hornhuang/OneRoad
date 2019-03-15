@@ -1,4 +1,4 @@
-package com.example.oneroad.classes;
+package com.example.oneroad.goods;
 
 import android.graphics.Bitmap;
 

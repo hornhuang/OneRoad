@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.oneroad.R;
-import com.example.oneroad.classes.EncyclopediaListGoods;
+import com.example.oneroad.goods.EncyclopediaListGoods;
 import com.example.oneroad.adapter.EncyclopediaAdapter;
 import com.example.oneroad.utils.GlideImageLoader;
 import com.youth.banner.Banner;

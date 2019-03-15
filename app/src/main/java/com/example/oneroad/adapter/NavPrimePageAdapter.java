@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.example.oneroad.R;
 import com.example.oneroad.activities.PrimePageGoodsActivity;
-import com.example.oneroad.classes.PrimePageListGoods;
+import com.example.oneroad.goods.PrimePageListGoods;
 import com.example.oneroad.fragments.NavPrimePageFragment;
 
 import java.util.List;

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.example.oneroad.R;
 import com.example.oneroad.activities.PrimePageGoodsActivity;
-import com.example.oneroad.classes.EncyclopediaListGoods;
+import com.example.oneroad.goods.EncyclopediaListGoods;
 import com.example.oneroad.fragments.NavEncyclopediaFragment;
 
 import java.util.List;

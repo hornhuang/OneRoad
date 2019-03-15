@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.oneroad.R;
-import com.example.oneroad.classes.PrimePageListGoods;
+import com.example.oneroad.goods.PrimePageListGoods;
 import com.example.oneroad.adapter.NavPrimePageAdapter;
 import com.example.oneroad.utils.GlideImageLoader;
 import com.youth.banner.Banner;

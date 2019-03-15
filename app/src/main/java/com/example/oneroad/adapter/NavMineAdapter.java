@@ -8,9 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.oneroad.R;
-import com.example.oneroad.classes.NavMineCollection;
+import com.example.oneroad.goods.NavMineCollection;
 import com.example.oneroad.fragments.NavMineCyclopediaFragment;
-import com.example.oneroad.fragments.NavMineFragment;
 import com.example.oneroad.fragments.NavMineStrategyFragment;
 
 import java.util.List;

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,11 +24,25 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private TextView mForgetPassword;
     private EditText mPasswordCode, mVerificationCode;
 
+    private Intent mFrom, mTo;
+    private boolean mFromLogUp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
+
+        getIntentFromPrevious();
         iniClick();
+    }
+
+    private void getIntentFromPrevious(){
+        mFrom = getIntent();
+        if ( mFrom.getStringExtra("from").equals("LOGUP") ){
+            mFromLogUp = false;
+        }else{
+            mFromLogUp = true;
+        }
     }
 
     private void iniClick(){
@@ -55,7 +70,13 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.log_in_log_up_button:
-                startActivity(new Intent( LogInActivity.this, LogUpActivity.class ));
+                if (mFromLogUp){
+                    mTo = new Intent(  LogInActivity.this, LogUpActivity.class );
+                    mTo.putExtra("from", "LOGIN");
+                    startActivity( mTo );
+                }else {
+                    finish();
+                }
                 break;
             case R.id.log_in_user_avatar:
                 // 打开项目
@@ -70,6 +91,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
                 break;
         }
+
     }
 
 }

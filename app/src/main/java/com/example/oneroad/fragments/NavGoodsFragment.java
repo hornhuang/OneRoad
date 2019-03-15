@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.oneroad.R;
-import com.example.oneroad.classes.NavGoodsGoods;
+import com.example.oneroad.goods.NavGoodsGoods;
 import com.example.oneroad.adapter.NavGoodsAdapter;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.BitmapCallback;
