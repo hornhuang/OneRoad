@@ -1,7 +1,9 @@
 package com.example.oneroad.activities;
 
-import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,14 +14,26 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.oneroad.R;
-import com.example.oneroad.users.User;
+import com.example.oneroad.users.Guest;
+import com.google.gson.Gson;
 import com.mob.MobSDK;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
-import java.util.HashMap;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
-import cn.smssdk.gui.RegisterPage;
+import es.dmoral.toasty.Toasty;
+import okhttp3.Call;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class LogUpActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -32,7 +46,73 @@ public class LogUpActivity extends AppCompatActivity implements View.OnClickList
     // 信息
     private Intent mFrom, mTo;
     private boolean mFromLogIn;
-    private User user;
+    private Guest guest;
+
+    /*
+    post 请求
+     */
+    private static final int POST = 2;
+    OkHttpClient client = new OkHttpClient();
+    public static final MediaType JSON
+            = MediaType.parse("application/json; charset=utf-8");
+
+    // Mod 短信服务集成
+    EventHandler eventHandler = new EventHandler() {
+        public void afterEvent(int event, int result, Object data) {
+            // afterEvent会在子线程被调用，因此如果后续有UI相关操作，需要将数据发送到UI线程
+            Message msg = new Message();
+            msg.arg1 = event;
+            msg.arg2 = result;
+            msg.obj = data;
+            new Handler(Looper.getMainLooper(), new Handler.Callback() {
+                @Override
+                public boolean handleMessage(Message msg) {
+                    int event = msg.arg1;
+                    int result = msg.arg2;
+                    Object data = msg.obj;
+                    if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+                        if (result == SMSSDK.RESULT_COMPLETE) {
+                            // TODO 处理成功得到验证码的结果
+                            // 请注意，此时只是完成了发送验证码的请求，验证码短信还需要几秒钟之后才送达
+                        } else {
+                            // TODO 处理错误的结果
+                            ((Throwable) data).printStackTrace();
+                            Toasty.error(LogUpActivity.this, "错误，请检查网络！", Toast.LENGTH_SHORT, true).show();
+                        }
+                    } else if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+                        if (result == SMSSDK.RESULT_COMPLETE) {
+                            // TODO 处理验证码验证通过的结果
+                            try {
+                                LogIn();// 登陆
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toasty.error(LogUpActivity.this, "失败，格式解析错误", Toast.LENGTH_SHORT, true).show();
+                            }
+                            finish();
+                        } else {
+                            // TODO 处理错误的结果
+                            ((Throwable) data).printStackTrace();
+                            Toasty.error(LogUpActivity.this, "错误，请检查网络！", Toast.LENGTH_SHORT, true).show();
+                        }
+                    }
+                    // TODO 其他接口的返回结果也类似，根据event判断当前数据属于哪个接口
+                    return false;
+                }
+            }).sendMessage(msg);
+        }
+    };
+
+    //    // 在尝试读取通信录时以弹窗提示用户（可选功能）
+    //SMSSDK.setAskPermisionOnReadContact(true);
+
+    //// 注册一个事件回调，用于处理SMSSDK接口请求的结果
+    //SMSSDK.registerEventHandler(eventHandler);
+    //
+    //// 请求验证码，其中country表示国家代码，如“86”；phone表示手机号码，如“13800138000”
+    //SMSSDK.getVerificationCode(country, phone);
+    //
+    //// 提交验证码，其中的code表示验证码，如“1357”
+    //SMSSDK.submitVerificationCode(country, phone, code);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +120,8 @@ public class LogUpActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_log_up);
 
         MobSDK.init(this);// Mod 开发平台短信服务使用权
+        // 注册一个事件回调，用于处理SMSSDK接口请求的结果
+        SMSSDK.registerEventHandler(eventHandler);
 
         getIntentFromPrevious();
         iniclick();
@@ -76,48 +158,114 @@ public class LogUpActivity extends AppCompatActivity implements View.OnClickList
                 mUserPasswordAgain.getText().toString(),
         };
         if ( string[0].equals("") ){
-            Toast.makeText(this,"请输入手机号",Toast.LENGTH_SHORT).show();
+            Toasty.info(this, "请输入手机号", Toast.LENGTH_SHORT, true).show();
             return false;
         } else if ( string[1].equals("") ){
-            Toast.makeText(this,"请输入验证码",Toast.LENGTH_SHORT).show();
+            Toasty.info(this, "请输入验证码", Toast.LENGTH_SHORT, true).show();
             return false;
         } else if ( string[2].equals("") ){
-            Toast.makeText(this,"请输入密码",Toast.LENGTH_SHORT).show();
+            Toasty.info(this, "请输入密码", Toast.LENGTH_SHORT, true).show();
             return false;
         } else if ( string[3].equals("") ){
-            Toast.makeText(this,"请再次输入密码",Toast.LENGTH_SHORT).show();
+            Toasty.info(this, "请再次输入密码", Toast.LENGTH_SHORT, true).show();
             return false;
         } if ( !string[2].equals(string[3]) ){
-            Toast.makeText(this,"两次输入密码不相同",Toast.LENGTH_SHORT).show();
+            Toasty.info(this, "两次输入密码不相同", Toast.LENGTH_SHORT, true).show();
             return false;
         } else {
-            user = new User( mUserPhoneNumber.getText().toString(), mUserPassword.getText().toString() );
             return true;
         }
     }
 
-    // 发送验证码并进行验证
-    public void sendCode(Context context, final String phoneNumber) {
-        RegisterPage page = new RegisterPage();
-        //如果使用我们的ui，没有申请模板编号的情况下需传null
-        page.setTempCode(null);
-        page.setRegisterCallback(new EventHandler() {
-            public void afterEvent(int event, int result, Object data) {
-                if (result == SMSSDK.RESULT_COMPLETE) {
-                    // 处理成功的结果
-                    HashMap<String,Object> phoneMap = (HashMap<String, Object>) data;
-                    String country = (String) phoneMap.get("86"); // 国家代码，如“86”
-                    String phone = (String) phoneMap.get(phoneNumber); // 手机号码，如“13800138000”
-                    // TODO 利用国家代码和手机号码进行后续的操作
-                } else{
-                    // TODO 处理错误的结果
-                    Toast.makeText(LogUpActivity.this,"验证码发送失败，请检查网络或手机号",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        page.show(context);
+    // 使用完EventHandler需注销，否则可能出现内存泄漏
+    protected void onDestroy() {
+        super.onDestroy();
+        SMSSDK.unregisterEventHandler(eventHandler);
     }
 
+    /** post 方法一：
+     * （ 使用 okHttpUtils ）
+      */
+
+    private void postJson() throws JSONException {
+        JSONObject json = new JSONObject();
+        json.put("nickname",mUserPhoneNumber.getText().toString());
+        json.put("phone",mUserPassword.getText().toString());
+        json.put("password",mUserPassword.getText().toString());
+        json.put("avatar",mUserPassword.getText().toString());
+        OkHttpUtils
+                .postString()
+                .url("http://47.107.132.227/api/mysql/getifo")
+                .content(json.toString())
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        Toasty.error(LogUpActivity.this, "postJson 上传失败 ！-->" + e.getMessage(), Toast.LENGTH_SHORT, true).show();
+                        Log.d("123123","body  -->\n"+ e.toString() +"error:-->\n" + new Gson().toJson(new Guest( "users", mUserPhoneNumber.getText().toString(), mUserPassword.getText().toString(), "" )));
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Toasty.success(LogUpActivity.this, "postJson 上传成功 ！", Toast.LENGTH_SHORT, true).show();
+                        Log.d("123123","body  -->succeed:-->" + new Gson().toJson(new Guest( "users", mUserPhoneNumber.getText().toString(), mUserPassword.getText().toString(), "" )));
+                    }
+                });
+        Log.d("123123","body  -->" + new Gson().toJson(new Guest( "users", mUserPhoneNumber.getText().toString(), mUserPassword.getText().toString(), "" )));
+    }
+
+    /** post 方法二
+     *  使用okHttp
+     * @throws JSONException
+     */
+    private void LogIn() throws JSONException {
+        Guest guest = new Guest( "users", mUserPhoneNumber.getText().toString(), mUserPassword.getText().toString(), "" );
+        JSONObject json = new JSONObject();
+        json.put("nickname",guest.getNickName());
+        json.put("phone",guest.getPhone());
+        json.put("password",guest.getPassword());
+        json.put("avatar",guest.getAvatar());
+        getDataFromPost(json);
+        Toasty.success(LogUpActivity.this, "注册成功!", Toast.LENGTH_SHORT, true).show();
+    }
+
+
+    //使用 post 请求上传数据
+    private void getDataFromPost(final JSONObject json ){
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    String string = post("http://47.107.132.227/api/mysql/getifo",json.toString());
+                }catch (IOException e){
+                    e.printStackTrace();
+                    Toasty.error(LogUpActivity.this, "注册失败!", Toast.LENGTH_SHORT, true).show();
+                }
+            }
+        }.start();
+    }
+
+    /**
+     * okHttp post请求
+     * @param url
+     * @param json
+     * @return
+     * @throws IOException
+     */
+    private String post(String url, String json) throws IOException {
+        RequestBody body = RequestBody.create(JSON, json);
+        Log.d("123123-->",json);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            return response.body().string();
+        }
+    }
+    
     @Override
     public void onClick(View v) {
         switch ( v.getId() ){
@@ -133,16 +281,23 @@ public class LogUpActivity extends AppCompatActivity implements View.OnClickList
             case R.id.log_up_log_up_button:
                 // do something and finish
                 if ( getEditsIfo() ){
-                    finish();
+                    String phoneNumber = mUserPhoneNumber.getText().toString();
+                    String verificationCode = mUserVerificationCode.getText().toString();
+//                     提交验证码，其中的code表示验证码，如“1357”
+                    SMSSDK.submitVerificationCode("86", phoneNumber, verificationCode);
+                    try {
+                        postJson();// 登陆
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
                 break;
             case R.id.log_up_get_verification_code:
                 // do something
                 String phoneNumber = mUserPhoneNumber.getText().toString();
                 if ( !phoneNumber.equals("") ){
-                    sendCode(LogUpActivity.this, phoneNumber);
-                } else {
-                    Toast.makeText(LogUpActivity.this,"请输入手机号码",Toast.LENGTH_SHORT).show();
+                    // 请求验证码，其中country表示国家代码，如“86”；phone表示手机号码，如“13800138000”
+                    SMSSDK.getVerificationCode("86", phoneNumber);
                 }
                 break;
             case R.id.log_up_user_avatar:
@@ -150,4 +305,5 @@ public class LogUpActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
+
 }

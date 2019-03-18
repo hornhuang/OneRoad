@@ -13,7 +13,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.oneroad"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -46,4 +46,6 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.zhy:okhttputils:2.6.2'//okHttp 封装库
     implementation 'de.hdodenhof:circleimageview:3.0.0'//圆形头像控件
+    implementation 'com.github.GrenderG:Toasty:1.4.1'// Toast 控件
+    implementation 'com.google.code.gson:gson:2.8.5'
 }
