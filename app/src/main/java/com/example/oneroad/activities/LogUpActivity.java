@@ -82,12 +82,7 @@ public class LogUpActivity extends AppCompatActivity implements View.OnClickList
                     } else if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
                         if (result == SMSSDK.RESULT_COMPLETE) {
                             // TODO 处理验证码验证通过的结果
-                            try {
-                                LogIn();// 登陆
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toasty.error(LogUpActivity.this, "失败，格式解析错误", Toast.LENGTH_SHORT, true).show();
-                            }
+                            logIn();// 登陆
                             finish();
                         } else {
                             // TODO 处理错误的结果
@@ -185,87 +180,29 @@ public class LogUpActivity extends AppCompatActivity implements View.OnClickList
 
     /** post 方法一：
      * （ 使用 okHttpUtils ）
-      */
-
-    private void postJson() throws JSONException {
-        JSONObject json = new JSONObject();
-        json.put("nickname",mUserPhoneNumber.getText().toString());
-        json.put("phone",mUserPassword.getText().toString());
-        json.put("password",mUserPassword.getText().toString());
-        json.put("avatar",mUserPassword.getText().toString());
-        OkHttpUtils
-                .postString()
+     */
+    private void logIn(){
+        OkHttpUtils.post()//
                 .url("http://47.107.132.227/api/mysql/getifo")
-                .content(json.toString())
-                .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                .build()
+                .addParams("nickname","000")
+                .addParams("phone"   ,mUserPhoneNumber.getText().toString())
+                .addParams("password",mUserPassword.getText().toString())
+                .addParams("avatar"  ,"000")
+//                .headers(headers)//
+                .build()//
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        Toasty.error(LogUpActivity.this, "postJson 上传失败 ！-->" + e.getMessage(), Toast.LENGTH_SHORT, true).show();
-                        Log.d("123123","body  -->\n"+ e.toString() +"error:-->\n" + new Gson().toJson(new Guest( "users", mUserPhoneNumber.getText().toString(), mUserPassword.getText().toString(), "" )));
+                        Toasty.error(LogUpActivity.this, "失败！请检查网络和输入格式 ！-->" + e.getMessage(), Toast.LENGTH_SHORT, true).show();
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
-                        Toasty.success(LogUpActivity.this, "postJson 上传成功 ！", Toast.LENGTH_SHORT, true).show();
-                        Log.d("123123","body  -->succeed:-->" + new Gson().toJson(new Guest( "users", mUserPhoneNumber.getText().toString(), mUserPassword.getText().toString(), "" )));
+                        Toasty.success(LogUpActivity.this, "欢迎加入我们！", Toast.LENGTH_SHORT, true).show();
                     }
                 });
-        Log.d("123123","body  -->" + new Gson().toJson(new Guest( "users", mUserPhoneNumber.getText().toString(), mUserPassword.getText().toString(), "" )));
     }
 
-    /** post 方法二
-     *  使用okHttp
-     * @throws JSONException
-     */
-    private void LogIn() throws JSONException {
-        Guest guest = new Guest( "users", mUserPhoneNumber.getText().toString(), mUserPassword.getText().toString(), "" );
-        JSONObject json = new JSONObject();
-        json.put("nickname",guest.getNickName());
-        json.put("phone",guest.getPhone());
-        json.put("password",guest.getPassword());
-        json.put("avatar",guest.getAvatar());
-        getDataFromPost(json);
-        Toasty.success(LogUpActivity.this, "注册成功!", Toast.LENGTH_SHORT, true).show();
-    }
-
-
-    //使用 post 请求上传数据
-    private void getDataFromPost(final JSONObject json ){
-        new Thread(){
-            @Override
-            public void run() {
-                super.run();
-                try {
-                    String string = post("http://47.107.132.227/api/mysql/getifo",json.toString());
-                }catch (IOException e){
-                    e.printStackTrace();
-                    Toasty.error(LogUpActivity.this, "注册失败!", Toast.LENGTH_SHORT, true).show();
-                }
-            }
-        }.start();
-    }
-
-    /**
-     * okHttp post请求
-     * @param url
-     * @param json
-     * @return
-     * @throws IOException
-     */
-    private String post(String url, String json) throws IOException {
-        RequestBody body = RequestBody.create(JSON, json);
-        Log.d("123123-->",json);
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            return response.body().string();
-        }
-    }
-    
     @Override
     public void onClick(View v) {
         switch ( v.getId() ){
@@ -285,11 +222,6 @@ public class LogUpActivity extends AppCompatActivity implements View.OnClickList
                     String verificationCode = mUserVerificationCode.getText().toString();
 //                     提交验证码，其中的code表示验证码，如“1357”
                     SMSSDK.submitVerificationCode("86", phoneNumber, verificationCode);
-                    try {
-                        postJson();// 登陆
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
                 }
                 break;
             case R.id.log_up_get_verification_code:
@@ -305,5 +237,4 @@ public class LogUpActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
-
 }

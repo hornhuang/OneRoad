@@ -101,6 +101,7 @@
                 android:layout_marginTop="20dp"
                 android:ems="10"
                 android:hint="设置密码"
+                android:password="true"
                 android:inputType="numberSigned" />
 
             <EditText
@@ -110,6 +111,7 @@
                 android:layout_marginTop="20dp"
                 android:ems="10"
                 android:hint="再次输入密码"
+                android:password="true"
                 android:inputType="numberSigned" />
 
         </LinearLayout>
