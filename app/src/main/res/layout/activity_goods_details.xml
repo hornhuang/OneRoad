@@ -8,15 +8,30 @@
     android:orientation="vertical"
     tools:context=".activities.GoodsDetails">
 
-    <com.flyco.tablayout.SlidingTabLayout
-        android:id="@+id/goods_details_tabs"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="75dp" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/colorAccent">
 
-    <FrameLayout
-        android:id="@+id/goods_details_frameLayout"
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/goods_details_tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="75dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/smssdk_gray"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/goods_details_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:outlineSpotShadowColor="@color/smssdk_tv_light_gray"
+        android:outlineAmbientShadowColor="@color/smssdk_black"/>
 
 </LinearLayout>

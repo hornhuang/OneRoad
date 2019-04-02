@@ -1,5 +1,6 @@
 package com.example.oneroad.fragments;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.oneroad.R;
+import com.example.oneroad.activities.GoodsDetails;
 import com.example.oneroad.goods.NavGoodsGoods;
 import com.example.oneroad.adapter.NavGoodsAdapter;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -74,6 +76,7 @@ public class NavGoodsFragment extends Fragment implements PictureForRecyclerView
         // Inflate the layout for this fragment
         mGoodsView =  inflater.inflate(R.layout.fragment_nav_goods, container, false);
         getImage();
+        startActivity(new Intent(getActivity(), GoodsDetails.class));
         return mGoodsView;
     }
 

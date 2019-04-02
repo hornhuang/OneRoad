@@ -1,6 +1,5 @@
- package com.example.oneroad.goods.goodsdetails;
+ package com.example.oneroad.fragments.goodsdetails;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.example.oneroad.R;
 
-public class GoodsEvalation extends Fragment {
+public class GoodsEvalationFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -22,12 +21,12 @@ public class GoodsEvalation extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public GoodsEvalation() {
+    public GoodsEvalationFragment() {
         // Required empty public constructor
     }
 
-    public static GoodsEvalation newInstance(String param1, String param2) {
-        GoodsEvalation fragment = new GoodsEvalation();
+    public static GoodsEvalationFragment newInstance(String param1, String param2) {
+        GoodsEvalationFragment fragment = new GoodsEvalationFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
