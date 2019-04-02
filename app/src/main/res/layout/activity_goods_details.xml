@@ -8,23 +8,29 @@
     android:orientation="vertical"
     tools:context=".activities.GoodsDetails">
 
-    <LinearLayout
+    <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_height="60dp"
         android:background="@color/colorAccent">
 
-        <com.flyco.tablayout.SlidingTabLayout
-            android:id="@+id/goods_details_tabs"
-            android:layout_width="wrap_content"
-            android:layout_height="75dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
 
-    </LinearLayout>
+            <com.flyco.tablayout.SlidingTabLayout
+                android:id="@+id/goods_details_tabs"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.Toolbar>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/smssdk_gray"/>
+        android:background="?android:listDivider"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/goods_details_viewpager"
@@ -33,5 +39,55 @@
         android:layout_weight="1"
         android:outlineSpotShadowColor="@color/smssdk_tv_light_gray"
         android:outlineAmbientShadowColor="@color/smssdk_black"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/headset"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|center_vertical"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/shopping_car"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="left|center_vertical" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="结算"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:background="@drawable/goods_shape_button"
+            android:layout_gravity="right|center_vertical"/>
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="加入购物车"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/goods_shape_button"
+            android:layout_gravity="right|center_vertical" />
+
+    </LinearLayout>
 
 </LinearLayout>

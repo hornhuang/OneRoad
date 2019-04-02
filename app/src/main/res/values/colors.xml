@@ -13,5 +13,6 @@
     //common color
     <color name="white">#fff</color>
     <color name="transparent">#00ffffff</color>
+    <color name="orange">#ffa37a</color>
 
 </resources>
