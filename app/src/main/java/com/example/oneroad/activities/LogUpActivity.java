@@ -7,7 +7,6 @@ import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,15 +14,9 @@ import android.widget.Toast;
 
 import com.example.oneroad.R;
 import com.example.oneroad.users.Guest;
-import com.google.gson.Gson;
 import com.mob.MobSDK;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
@@ -31,32 +24,35 @@ import es.dmoral.toasty.Toasty;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class LogUpActivity extends AppCompatActivity implements View.OnClickListener {
 
-    // 控件
+    /*
+     控件
+      */
     private Button mLogUp, mGetVerificationCode;
     private FloatingActionButton mLogIn;
     private EditText mUserPhoneNumber, mUserVerificationCode,
         mUserPassword, mUserPasswordAgain;
 
-    // 信息
+    /*
+     各种信息流
+     */
     private Intent mFrom, mTo;
     private boolean mFromLogIn;
     private Guest guest;
 
     /*
-    post 请求
+     post 请求
      */
     private static final int POST = 2;
     OkHttpClient client = new OkHttpClient();
     public static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
 
-    // Mod 短信服务集成
+    /*
+     Mod 短信服务集成
+      */
     EventHandler eventHandler = new EventHandler() {
         public void afterEvent(int event, int result, Object data) {
             // afterEvent会在子线程被调用，因此如果后续有UI相关操作，需要将数据发送到UI线程
@@ -97,18 +93,6 @@ public class LogUpActivity extends AppCompatActivity implements View.OnClickList
         }
     };
 
-    //    // 在尝试读取通信录时以弹窗提示用户（可选功能）
-    //SMSSDK.setAskPermisionOnReadContact(true);
-
-    //// 注册一个事件回调，用于处理SMSSDK接口请求的结果
-    //SMSSDK.registerEventHandler(eventHandler);
-    //
-    //// 请求验证码，其中country表示国家代码，如“86”；phone表示手机号码，如“13800138000”
-    //SMSSDK.getVerificationCode(country, phone);
-    //
-    //// 提交验证码，其中的code表示验证码，如“1357”
-    //SMSSDK.submitVerificationCode(country, phone, code);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,6 +115,9 @@ public class LogUpActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    /*
+    注册控件点击事件
+     */
     private void iniclick(){
         mLogIn = (FloatingActionButton) findViewById(R.id.log_up_log_in_button);
         mLogUp = (Button) findViewById(R.id.log_up_log_up_button);
@@ -145,6 +132,9 @@ public class LogUpActivity extends AppCompatActivity implements View.OnClickList
         mGetVerificationCode.setOnClickListener(this);
     }
 
+    /*
+    获得用户输入的信息
+     */
     private boolean getEditsIfo(){
         String string[] = new String[]{
                 mUserPhoneNumber.getText().toString(),
@@ -172,7 +162,9 @@ public class LogUpActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    // 使用完EventHandler需注销，否则可能出现内存泄漏
+    /*
+     使用完EventHandler需注销，否则可能出现内存泄漏
+      */
     protected void onDestroy() {
         super.onDestroy();
         SMSSDK.unregisterEventHandler(eventHandler);
@@ -203,6 +195,9 @@ public class LogUpActivity extends AppCompatActivity implements View.OnClickList
                 });
     }
 
+    /*
+    匹配点击事件
+     */
     @Override
     public void onClick(View v) {
         switch ( v.getId() ){

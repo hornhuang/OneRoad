@@ -48,4 +48,5 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.0.0'//圆形头像控件
     implementation 'com.github.GrenderG:Toasty:1.4.1'// Toast 控件
     implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'// tabLayout 配适器
 }
