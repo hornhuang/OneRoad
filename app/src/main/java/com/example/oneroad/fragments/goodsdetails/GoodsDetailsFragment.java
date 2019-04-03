@@ -57,41 +57,7 @@ public class GoodsDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_goods_details, container, false);
-        setBanner(view);
         return view;
-    }
-
-    private void setBanner(View view){
-        //配置 images 和 titles
-        for (int i = 0 ; i < 4 ; i++){
-            images.add("http://47.107.132.227/form");
-        }
-        titles.add("1/4");
-        titles.add("2/4");
-        titles.add("3/4");
-        titles.add("4/4");
-
-        Banner banner = (Banner) view.findViewById(R.id.goods_details_banner);
-        banner.setImages(images).setImageLoader(new GlideImageLoader());
-
-        //设置banner样式
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
-        //设置图片加载器
-        banner.setImageLoader(new GlideImageLoader());
-        //设置图片集合
-        banner.setImages(images);
-        //设置banner动画效果
-        banner.setBannerAnimation(Transformer.DepthPage);
-        //设置标题集合（当banner样式有显示title时）
-        banner.setBannerTitles(titles);
-        //设置自动轮播，默认为true
-        banner.isAutoPlay(true);
-        //设置轮播时间
-        banner.setDelayTime(1500);
-        //设置指示器位置（当banner模式中有指示器时）
-        banner.setIndicatorGravity(BannerConfig.CENTER);
-        //banner设置方法全部调用完毕时最后调用
-        banner.start();
     }
 
     public void onButtonPressed(Uri uri) {

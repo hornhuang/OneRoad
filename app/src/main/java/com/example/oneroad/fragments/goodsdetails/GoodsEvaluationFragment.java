@@ -1,17 +1,29 @@
  package com.example.oneroad.fragments.goodsdetails;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.oneroad.R;
+import com.example.oneroad.activities.GoodsDetails;
 
-public class GoodsEvalationFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+import java.util.Objects;
+
+import es.dmoral.toasty.Toasty;
+
+ public class GoodsEvaluationFragment extends Fragment implements View.OnClickListener {
+
+    /*
+    控件
+     */
+    private LinearLayout addLinearLayout;
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -21,12 +33,12 @@ public class GoodsEvalationFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public GoodsEvalationFragment() {
+    public GoodsEvaluationFragment() {
         // Required empty public constructor
     }
 
-    public static GoodsEvalationFragment newInstance(String param1, String param2) {
-        GoodsEvalationFragment fragment = new GoodsEvalationFragment();
+    public static GoodsEvaluationFragment newInstance(String param1, String param2) {
+        GoodsEvaluationFragment fragment = new GoodsEvaluationFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -47,7 +59,10 @@ public class GoodsEvalationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_goods_evalation, container, false);
+        View view = inflater.inflate(R.layout.fragment_goods_evalation, container, false);
+        addLinearLayout = view.findViewById(R.id.goods_add_evaluation);
+        addLinearLayout.setOnClickListener(this);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -63,8 +78,19 @@ public class GoodsEvalationFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.goods_add_evaluation:
+//                startActivity(new Intent());
+                Toasty.success((GoodsDetails) Objects.requireNonNull(getActivity()), "跳转至评论发布界面").show();
+                break;
+        }
+    }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

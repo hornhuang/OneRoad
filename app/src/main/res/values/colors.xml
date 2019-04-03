@@ -14,5 +14,11 @@
     <color name="white">#fff</color>
     <color name="transparent">#00ffffff</color>
     <color name="orange">#ffa37a</color>
+    <color name="red">#a42016</color>
+    <color name="black">#151519</color>
+    <color name="blue">#2d22d1</color>
+
+    //common shallow color
+    <color name="shallow_red">#ce5b4d</color>
 
 </resources>

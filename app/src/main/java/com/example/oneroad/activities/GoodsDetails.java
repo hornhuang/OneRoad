@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.oneroad.R;
 import com.example.oneroad.fragments.goodsdetails.GoodsDetailsFragment;
-import com.example.oneroad.fragments.goodsdetails.GoodsEvalationFragment;
+import com.example.oneroad.fragments.goodsdetails.GoodsEvaluationFragment;
 import com.example.oneroad.fragments.goodsdetails.GoodsIntroduceFragment;
 import com.flyco.tablayout.SlidingTabLayout;
 
@@ -37,12 +37,12 @@ public class GoodsDetails extends BaseActivity {
      */
     private void bindTabs(){
         final Fragment goodsDetailsFragment = new GoodsDetailsFragment();
-        final Fragment goodsEvalationFragment = new GoodsEvalationFragment();
+        final Fragment goodsEvalationFragment = new GoodsEvaluationFragment();
         final Fragment goodsIntroduceFragment = new GoodsIntroduceFragment();
         ArrayList<Fragment> fragments = new ArrayList<Fragment>();
+        fragments.add(goodsIntroduceFragment);
         fragments.add(goodsDetailsFragment);
         fragments.add(goodsEvalationFragment);
-        fragments.add(goodsIntroduceFragment);
 
         String[] strings = new String[]{"商品","详情","评论"};
         slidingTabLayout.setViewPager(viewPager, strings, GoodsDetails.this, fragments);

@@ -8,16 +8,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.oneroad.R;
+import com.example.oneroad.utils.GlideImageLoader;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.Transformer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GoodsIntroduceFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    /*
+    相关信息流
+     */
     private String mParam1;
     private String mParam2;
+    private List<String> images = new ArrayList<>();
+    private List<String> titles = new ArrayList<>();
 
     private OnFragmentInteractionListener mListener;
 
@@ -47,7 +57,9 @@ public class GoodsIntroduceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_goods_introduce, container, false);
+        View view = inflater.inflate(R.layout.fragment_goods_introduce, container, false);
+        setBanner(view);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -67,4 +79,38 @@ public class GoodsIntroduceFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    private void setBanner(View view){
+        //配置 images 和 titles
+        for (int i = 0 ; i < 4 ; i++){
+            images.add("http://47.107.132.227/form");
+        }
+        titles.add("1/4");
+        titles.add("2/4");
+        titles.add("3/4");
+        titles.add("4/4");
+
+        Banner banner = (Banner) view.findViewById(R.id.goods_details_banner);
+        banner.setImages(images).setImageLoader(new GlideImageLoader());
+
+        //设置banner样式
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
+        //设置图片加载器
+        banner.setImageLoader(new GlideImageLoader());
+        //设置图片集合
+        banner.setImages(images);
+        //设置banner动画效果
+        banner.setBannerAnimation(Transformer.DepthPage);
+        //设置标题集合（当banner样式有显示title时）
+        banner.setBannerTitles(titles);
+        //设置自动轮播，默认为true
+        banner.isAutoPlay(true);
+        //设置轮播时间
+        banner.setDelayTime(1500);
+        //设置指示器位置（当banner模式中有指示器时）
+        banner.setIndicatorGravity(BannerConfig.CENTER);
+        //banner设置方法全部调用完毕时最后调用
+        banner.start();
+    }
+
 }
