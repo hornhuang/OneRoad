@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.GoodsDetails"></activity>
+        <activity android:name=".activities.PushEvaluationActivity"></activity>
+        <activity android:name=".activities.GoodsDetails" />
         <activity android:name=".activities.LogUpActivity" />
         <activity android:name=".activities.LogInActivity" />
         <activity android:name=".activities.PrimePageGoodsActivity" />

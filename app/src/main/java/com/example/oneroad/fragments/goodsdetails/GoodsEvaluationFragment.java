@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.oneroad.R;
 import com.example.oneroad.activities.GoodsDetails;
+import com.example.oneroad.activities.PushEvaluationActivity;
 
 import java.util.Objects;
 
@@ -82,7 +83,7 @@ import es.dmoral.toasty.Toasty;
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.goods_add_evaluation:
-//                startActivity(new Intent());
+                startActivity(new Intent(getActivity(), PushEvaluationActivity.class));
                 Toasty.success((GoodsDetails) Objects.requireNonNull(getActivity()), "跳转至评论发布界面").show();
                 break;
         }
