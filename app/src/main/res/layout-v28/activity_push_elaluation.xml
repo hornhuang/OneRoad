@@ -101,8 +101,6 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="null"
-                android:gravity="top"
                 android:hint="宝贝满足你的期待吗？说出你的使用心得，分享给想买的他们吧。 "
                 android:maxHeight="400dp"
                 android:minHeight="200dp"
@@ -112,8 +110,8 @@
             <ImageView
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/add_photo" />
+                android:src="@drawable/add_photo"
+                android:scaleType="fitXY" />
 
             <Button
                 android:layout_width="match_parent"

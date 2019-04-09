@@ -55,7 +55,7 @@ public class EncyclopediaAdapter extends RecyclerView.Adapter<EncyclopediaAdapte
 
         public VH(View view){
             super(view);
-            view.getLayoutParams().height = 300;
+            view.getLayoutParams().height = 500;
             imageView = (ImageView) view.findViewById(R.id.nav_prime_page_list_item);
         }
     }

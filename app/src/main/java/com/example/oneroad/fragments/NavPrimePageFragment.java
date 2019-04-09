@@ -1,5 +1,6 @@
 package com.example.oneroad.fragments;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,7 +13,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.oneroad.R;
 import com.example.oneroad.goods.PrimePageListGoods;
 import com.example.oneroad.adapter.NavPrimePageAdapter;
@@ -20,6 +23,7 @@ import com.example.oneroad.utils.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+import com.youth.banner.loader.ImageLoader;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.BitmapCallback;
 
@@ -100,18 +104,33 @@ public class NavPrimePageFragment extends Fragment implements PictureForRecycler
 
     private void setBanner(View view){
         //配置 images 和 titles
+//        Bitmap bitmaps[] = new Bitmap[4];
+//        bitmaps[0] = BitmapFactory.decodeResource(getResources(), );
+//        bitmaps[1] = BitmapFactory.decodeResource(getResources(), );
+//        bitmaps[2] = BitmapFactory.decodeResource(getResources(), );
+//        bitmaps[3] = BitmapFactory.decodeResource(getResources(), );
+        List<Integer> images = new ArrayList<>();
+        images.add(R.drawable.text_evc_top_4);
+        images.add(R.drawable.text_evc_top_1);
+        images.add(R.drawable.text_evc_top_2);
+        images.add(R.drawable.text_evc_top_3);
+        titles.add("2018文化和自然遗产日");
+        titles.add("川剧一绝——吐火");
+        titles.add("非遗印象 品牌设计方案");
+        titles.add("历史印记 无锡非遗");
         for (int i = 0 ; i < 4 ; i++){
-            images.add("http://47.107.132.227/form");
-            titles.add("这里是测试用例");
+            //images.add("http://47.107.132.227/form");
         }
 
         Banner banner = (Banner) view.findViewById(R.id.banner);
-        banner.setImages(images).setImageLoader(new GlideImageLoader());
+//        banner.setImages(images).setImageLoader(new GlideImageLoader());
+        banner.setImages(images).setImageLoader(new MyImageLoader());
 
         //设置banner样式
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
         //设置图片加载器
-        banner.setImageLoader(new GlideImageLoader());
+//        banner.setImageLoader(new GlideImageLoader());
+        banner.setImageLoader(new MyImageLoader());
         //设置图片集合
         banner.setImages(images);
         //设置banner动画效果
@@ -126,6 +145,15 @@ public class NavPrimePageFragment extends Fragment implements PictureForRecycler
         banner.setIndicatorGravity(BannerConfig.CENTER);
         //banner设置方法全部调用完毕时最后调用
         banner.start();
+    }
+
+    private class MyImageLoader extends ImageLoader {
+        @Override
+        public void displayImage(Context context, Object path, ImageView imageView) {
+            Glide.with(context.getApplicationContext())
+                    .load(path)
+                    .into(imageView);
+        }
     }
 
     //生成所有列表项

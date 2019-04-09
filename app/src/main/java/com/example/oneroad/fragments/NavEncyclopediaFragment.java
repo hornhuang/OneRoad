@@ -1,6 +1,8 @@
 package com.example.oneroad.fragments;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,7 +13,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.oneroad.R;
 import com.example.oneroad.goods.EncyclopediaListGoods;
 import com.example.oneroad.adapter.EncyclopediaAdapter;
@@ -19,6 +23,7 @@ import com.example.oneroad.utils.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+import com.youth.banner.loader.ImageLoader;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.BitmapCallback;
 
@@ -109,18 +114,33 @@ public class NavEncyclopediaFragment extends Fragment implements PictureForRecyc
 
     private void setBanner(View view){
         //配置 images 和 titles
-        for (int i = 0 ; i < 4 ; i++){
-            images.add("http://47.107.132.227/form");
-            titles.add("这里是测试用例");
-        }
+//        Bitmap bitmaps[] = new Bitmap[4];
+//        bitmaps[0] = BitmapFactory.decodeResource(getResources(), );
+//        bitmaps[1] = BitmapFactory.decodeResource(getResources(), );
+//        bitmaps[2] = BitmapFactory.decodeResource(getResources(), );
+//        bitmaps[3] = BitmapFactory.decodeResource(getResources(), );
+        List<Integer> images = new ArrayList<>();
+        images.add(R.drawable.text_pri_top_4);
+        images.add(R.drawable.text_pri_top_1);
+        images.add(R.drawable.text_pri_top_2);
+        images.add(R.drawable.text_pri_top_3);
+        titles.add("二十四节气");
+        titles.add("研学| 追寻温州非遗文化,亲手体验国家级非遗");
+        titles.add("中秋节");
+        titles.add("文化和自然遗产日");
+//        for (int i = 0 ; i < 4 ; i++){
+            //images.add("http://47.107.132.227/form");
+//        }
 
         Banner banner = (Banner) view.findViewById(R.id.nav_encyclopedia_banner);
-        banner.setImages(images).setImageLoader(new GlideImageLoader());
+//        banner.setImages(images).setImageLoader(new GlideImageLoader());
+        banner.setImages(images).setImageLoader(new MyImageLoader());
 
         //设置banner样式
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
         //设置图片加载器
-        banner.setImageLoader(new GlideImageLoader());
+//        banner.setImageLoader(new GlideImageLoader());
+        banner.setImageLoader(new MyImageLoader());
         //设置图片集合
         banner.setImages(images);
         //设置banner动画效果
@@ -137,6 +157,14 @@ public class NavEncyclopediaFragment extends Fragment implements PictureForRecyc
         banner.start();
     }
 
+    private class MyImageLoader extends ImageLoader {
+        @Override
+        public void displayImage(Context context, Object path, ImageView imageView) {
+            Glide.with(context.getApplicationContext())
+                    .load(path)
+                    .into(imageView);
+        }
+    }
 
     @Override
     public void downloadPicture() {
@@ -144,10 +172,19 @@ public class NavEncyclopediaFragment extends Fragment implements PictureForRecyc
         new Thread(){
             @Override
             public void run() {
-                while (mGoodsRecyclerList.size() < 15){
+//                while (mGoodsRecyclerList.size() < 15){
+        Bitmap bitmaps[] = new Bitmap[4];
+        int i = 0;
+        bitmaps[0] = BitmapFactory.decodeResource(getResources(), R.drawable.text_pri_bottom_1);
+        bitmaps[1] = BitmapFactory.decodeResource(getResources(), R.drawable.text_pri_bottom_2);
+        bitmaps[2] = BitmapFactory.decodeResource(getResources(), R.drawable.text_pri_bottom_3);
+        bitmaps[3] = BitmapFactory.decodeResource(getResources(), R.drawable.text_pri_bottom_4);
+                    while (mGoodsRecyclerList.size() < 4){
                     try {
                         sleep(100);
-                        getImage();
+//                        getImage();
+                        mGoodsRecyclerList.add(new EncyclopediaListGoods(bitmaps[i]));
+                        i++ ;
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -197,7 +234,7 @@ public class NavEncyclopediaFragment extends Fragment implements PictureForRecyc
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setNestedScrollingEnabled(false);
-        mRecyclerView.getLayoutParams().height = mData.size() * 300;
+        mRecyclerView.getLayoutParams().height = mData.size() * 500;
         mRecyclerView.setAdapter(new EncyclopediaAdapter(mData, this));
     }
 
