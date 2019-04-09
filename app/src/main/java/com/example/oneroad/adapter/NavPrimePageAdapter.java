@@ -57,7 +57,7 @@ public class NavPrimePageAdapter extends RecyclerView.Adapter<NavPrimePageAdapte
 
         public VH(View view){
             super(view);
-            view.getLayoutParams().height = 300 ;//获得布局参数的高度，并设置
+            view.getLayoutParams().height = 500 ;//获得布局参数的高度，并设置
             imageid = (ImageView) view.findViewById(R.id.nav_prime_page_list_item);
         }
 

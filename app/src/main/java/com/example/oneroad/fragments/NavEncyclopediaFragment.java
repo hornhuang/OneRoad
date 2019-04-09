@@ -19,7 +19,6 @@ import com.bumptech.glide.Glide;
 import com.example.oneroad.R;
 import com.example.oneroad.goods.EncyclopediaListGoods;
 import com.example.oneroad.adapter.EncyclopediaAdapter;
-import com.example.oneroad.utils.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -175,10 +174,10 @@ public class NavEncyclopediaFragment extends Fragment implements PictureForRecyc
 //                while (mGoodsRecyclerList.size() < 15){
         Bitmap bitmaps[] = new Bitmap[4];
         int i = 0;
-        bitmaps[0] = BitmapFactory.decodeResource(getResources(), R.drawable.text_pri_bottom_1);
-        bitmaps[1] = BitmapFactory.decodeResource(getResources(), R.drawable.text_pri_bottom_2);
-        bitmaps[2] = BitmapFactory.decodeResource(getResources(), R.drawable.text_pri_bottom_3);
-        bitmaps[3] = BitmapFactory.decodeResource(getResources(), R.drawable.text_pri_bottom_4);
+        bitmaps[0] = BitmapFactory.decodeResource(getResources(), R.drawable.text_eva_bottom_1);
+        bitmaps[1] = BitmapFactory.decodeResource(getResources(), R.drawable.text_eva_bottom_2);
+        bitmaps[2] = BitmapFactory.decodeResource(getResources(), R.drawable.text_eva_bottom_3);
+        bitmaps[3] = BitmapFactory.decodeResource(getResources(), R.drawable.text_eva_bottom_4);
                     while (mGoodsRecyclerList.size() < 4){
                     try {
                         sleep(100);

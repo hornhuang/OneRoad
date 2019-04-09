@@ -2,6 +2,7 @@ package com.example.oneroad.fragments;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -162,13 +163,20 @@ public class NavPrimePageFragment extends Fragment implements PictureForRecycler
         new Thread(){
             @Override
             public void run() {
-                mainVerticalList = new ArrayList<>();
+
+                Bitmap bitmaps[] = new Bitmap[4];
+                bitmaps[0] = BitmapFactory.decodeResource(getResources(), R.drawable.text_pri_bottom_1);
+                bitmaps[1] = BitmapFactory.decodeResource(getResources(), R.drawable.text_pri_bottom_2);
+                bitmaps[2] = BitmapFactory.decodeResource(getResources(), R.drawable.text_pri_bottom_3);
+                bitmaps[3] = BitmapFactory.decodeResource(getResources(), R.drawable.text_pri_bottom_4);
                 int i = 0;
-                while (i++ < 6){
+                mainVerticalList = new ArrayList<>();
+                while (i < 4){
                     Log.d("123123",mainVerticalList.size() + "  " + i);
                     try {
                         sleep(100);
-                        getImage();
+//                        getImage();
+                        mainVerticalList.add(new PrimePageListGoods(bitmaps[i++]));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -189,7 +197,7 @@ public class NavPrimePageFragment extends Fragment implements PictureForRecycler
         mVerticalListView.setLayoutManager(manager);
         mVerticalListView.setHasFixedSize(true);
         mVerticalListView.setNestedScrollingEnabled(false);
-        mVerticalListView.getLayoutParams().height = 300 * data.size();//设置 recyclerView 高度
+        mVerticalListView.getLayoutParams().height = 500 * data.size();//设置 recyclerView 高度
         mVerticalListView.setAdapter(new NavPrimePageAdapter(data,this));
     }
 

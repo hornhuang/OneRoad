@@ -4,31 +4,31 @@
     <item
         android:title="@string/encyclopedia"
         android:id="@+id/nav_encyclopedia"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/text_baike"
         android:orderInCategory="1"/>
 
     <item
         android:title="@string/goods"
         android:id="@+id/nav_goods"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/text_shangpingouwudai"
         android:orderInCategory="2"/>
 
     <item
         android:title="@string/prime_page"
         android:id="@+id/nav_prime_page"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/text_shouye"
         android:orderInCategory="3"/>
 
     <item
         android:title="@string/route"
         android:id="@+id/nav_route"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/text_luxian"
         android:orderInCategory="4"/>
 
     <item
         android:title="@string/mine"
         android:id="@+id/nav_mine"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/text_wode"
         android:orderInCategory="5"/>
 
 </menu>
